@@ -1,0 +1,79 @@
+.admin-title {
+  text-transform: capitalize;
+  padding-left: 20px;
+}
+
+.divider {
+  border-right: 1px solid #e8e8e8;
+}
+
+.ant-menu,
+.logo,
+.ant-layout-sider-children {
+  background: #242a33 !important;
+}
+
+.ant-layout-sider-trigger {
+  background: #22262d !important;
+}
+
+.ant-menu-item < .ant-menu-item-selected {
+  background-color: red;
+}
+
+.ant-row.ant-form-item {
+  margin-bottom: 5px;
+}
+
+.ant-layout-header {
+  background: rgb(115, 89, 243) !important;
+}
+
+.ant-layout-header * {
+  color: white;
+}
+
+.logo img {
+  width: 100%;
+}
+
+/* Helpers */
+
+.fw {
+  width: 100%;
+}
+
+.fade {
+  animation: fade;
+  animation-duration: 1s;
+}
+
+.fadeIn {
+  animation: fade;
+  animation-duration: .8s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.cancelada {
+  background-color: #b71540;
+  color: white;
+}
+
+/* Datatable */
+.dt-edit-button {
+  font-size: 18px;
+  color: #1890ff;
+}
+
+.dt-toggle-status-btn {
+  color: #1890ff;
+  cursor: pointer;
+}
