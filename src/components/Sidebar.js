@@ -26,16 +26,16 @@ class Sidebar extends Component {
           />
         </div>
         <Menu theme="dark" defaultSelectedKeys={[path]} mode="inline">
-          <Menu.Item key="calendario">
-            <NavLink activeClassName="active" to="/calendario">
-              <Icon type="calendar" />
-              <span>Calendario</span>
+          <Menu.Item key="noticia">
+            <NavLink activeClassName="active" to="/noticia">
+              <Icon type="exception" />
+              <span>Noticias</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="asignar-credito">
-            <NavLink activeClassName="active" to="/asignar-credito">
-              <Icon type="credit-card" />
-              <span>Asignar créditos</span>
+          <Menu.Item key="evento">
+            <NavLink activeClassName="active" to="/evento">
+              <Icon type="calendar" />
+              <span>Eventos</span>
             </NavLink>
           </Menu.Item>
           {/* <Menu.Item key="2">

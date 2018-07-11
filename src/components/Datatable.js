@@ -32,6 +32,7 @@ export default class Datatable extends Component {
   setDataToState = async model => {
     // this.setState({ data: [] })
     const data = await getDocumentsByModel(this.props.model)
+    console.log(data)
     this.setState({ data, dataSource: data })
   }
 

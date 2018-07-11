@@ -7,6 +7,11 @@
   border-right: 1px solid #e8e8e8;
 }
 
+
+.float-right {
+  float: right;
+}
+
 .ant-menu,
 .logo,
 .ant-layout-sider-children {
