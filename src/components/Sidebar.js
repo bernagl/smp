@@ -47,7 +47,7 @@ class Sidebar extends Component {
           <Menu.Item key="notificacion">
             <NavLink activeClassName="active" to="/notificacion">
               <Icon type="notification" />
-              <span>Noticiaciones</span>
+              <span>Notificaciones</span>
             </NavLink>
           </Menu.Item>
           <Menu.Item key="categoria">

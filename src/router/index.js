@@ -4,6 +4,7 @@ import Categorias from '../models/CategoriaModel'
 import Noticias from '../models/NoticiaModel'
 import Eventos from '../models/EventoModel'
 import Notificaciones from '../models/NotificacionModel'
+import Usuarios from '../models/UsuarioModel'
 
 export const Router = () => {
   return (
@@ -12,6 +13,7 @@ export const Router = () => {
       <Route path="/evento" component={Eventos} />
       <Route path="/noticia" component={Noticias} />
       <Route path="/notificacion" component={Notificaciones} />
+      <Route path="/usuario" component={Usuarios} />
       <Route component={Ekk} />
     </Switch>
   )
