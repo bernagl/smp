@@ -43,15 +43,15 @@ export default class Form extends Component {
     if (!customModel) {
       return
     }
-
+    console.log(customModel)
     const response = await this.props.action({
       id: selected ? selected.id : null,
       ...customModel
     })
 
     if (response === 202) {
-      closeModal()
-      updateData()
+      closeModal && closeModal()
+      updateData && updateData()
       message.success('Registro guardado')
     } else {
       message.error('Ocurrió un error, por favor vuelve a intentarlo')

@@ -26,10 +26,22 @@ class Sidebar extends Component {
           />
         </div>
         <Menu theme="dark" defaultSelectedKeys={[path]} mode="inline">
+          <Menu.Item key="dashboard">
+            <NavLink activeClassName="active" to="/dashboard">
+              <Icon type="dashboard" />
+              <span>Dashboard</span>
+            </NavLink>
+          </Menu.Item>
           <Menu.Item key="noticia">
             <NavLink activeClassName="active" to="/noticia">
               <Icon type="exception" />
               <span>Noticias</span>
+            </NavLink>
+          </Menu.Item>
+          <Menu.Item key="equipo">
+            <NavLink activeClassName="active" to="/equipo">
+              <Icon type="usergroup-add" />
+              <span>Equipos</span>
             </NavLink>
           </Menu.Item>
           <Menu.Item key="evento">
@@ -56,25 +68,13 @@ class Sidebar extends Component {
               <span>Categorías</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="instructor">
-            <NavLink activeClassName="active" to="/instructor">
-              <Icon type="usergroup-add" />
-              <span>Instructores</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="salon">
-            <NavLink activeClassName="active" to="/salon">
-              <Icon type="home" />
-              <span>Salones</span>
-            </NavLink>
-          </Menu.Item>
           <Menu.Item key="usuario">
             <NavLink activeClassName="active" to="/usuario">
               <Icon type="user" />
               <span>Usuarios</span>
             </NavLink>
           </Menu.Item>
-          <SubMenu
+          {/* <SubMenu
             key="clases"
             title={
               <span>
@@ -93,7 +93,7 @@ class Sidebar extends Component {
                 Asignar horario
               </NavLink>
             </Menu.Item>
-          </SubMenu>
+          </SubMenu> */}
           {/* <SubMenu
             key="sub2"
             title={

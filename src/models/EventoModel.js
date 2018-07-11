@@ -25,6 +25,7 @@ export default class Evento extends Component {
       ...model,
       fecha: model.fecha ? model.fecha : moment().format('L'),
       inicio: moment(inicio).format(),
+      votacion: 0,
       categoria,
       fin: moment(fin).format()
     }

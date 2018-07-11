@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Icon, Modal } from 'antd'
+import { Link } from 'react-router-dom'
 import { CSVLink } from 'react-csv'
 import Table from 'react-xtable'
 import Form from './Form2'
@@ -77,6 +78,7 @@ export default class Datatable extends Component {
       download,
       Inputs,
       model,
+      redirect,
       showHideDisabled,
       submit,
       title
@@ -85,13 +87,19 @@ export default class Datatable extends Component {
     return (
       <div className="row">
         <div className="col-12 my-2">
-          <Button
-            type="primary"
-            onClick={() => this.showModal()}
-            className="float-right"
-          >
-            Agregar
-          </Button>
+          {!redirect ? (
+            <Button
+              type="primary"
+              onClick={() => this.showModal()}
+              className="float-right"
+            >
+              Agregar
+            </Button>
+          ) : (
+            <Button type="primary">
+              <Link to={redirect} />
+            </Button>
+          )}
           {!showHideDisabled && (
             <span
               onClick={this.toggleDisabled}

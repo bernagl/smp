@@ -7,7 +7,6 @@
   border-right: 1px solid #e8e8e8;
 }
 
-
 .float-right {
   float: right;
 }
@@ -22,16 +21,12 @@
   background: #22262d !important;
 }
 
-.ant-menu-item < .ant-menu-item-selected {
-  background-color: red;
-}
-
 .ant-row.ant-form-item {
   margin-bottom: 5px;
 }
 
 .ant-layout-header {
-  background: rgb(115, 89, 243) !important;
+  background: #22262d !important;
 }
 
 .ant-layout-header * {
@@ -73,6 +68,7 @@
 }
 
 /* Datatable */
+
 .dt-edit-button {
   font-size: 18px;
   color: #1890ff;
