@@ -15,7 +15,7 @@ export default class Evento extends Component {
     if (!fechas) return false
     return {
       ...model,
-      fecha: moment().format('L'),
+      fecha: model.fecha ? model.fecha : moment().format('L'),
       inicio: moment(fechas[0]).format(),
       fin: moment(fechas[1]).format()
     }

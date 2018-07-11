@@ -2,12 +2,14 @@ import React from 'react'
 import { Link, Route, Switch } from 'react-router-dom'
 import Noticias from '../models/NoticiaModel'
 import Eventos from '../models/EventoModel'
+import Notificaciones from '../models/NotificacionModel'
 
 export const Router = () => {
   return (
     <Switch>
       <Route path="/evento" component={Eventos} />
       <Route path="/noticia" component={Noticias} />
+      <Route path="/notificacion" component={Notificaciones} />
       <Route component={Ekk} />
     </Switch>
   )

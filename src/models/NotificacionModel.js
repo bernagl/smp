@@ -12,7 +12,7 @@ export default () => {
 
   return (
     <Datatable
-      model="noticia"
+      model="notificacion"
       Inputs={Inputs}
       Columns={Columns}
       submit={submit}
@@ -29,7 +29,7 @@ const Columns = (showModal, setDataToState) => {
       key: 'actions',
       Render: selected => (
         <DatatableActions
-          model="noticia"
+          model="notificacion"
           selected={selected}
           showModal={showModal}
           setDataToState={setDataToState}
@@ -50,7 +50,7 @@ const Inputs = ({ titulo, cuerpo, imagen }) => {
         validationError="Ingresa un título válido"
         required
       />
-      <Input
+      {/* <Input
         name="cuerpo"
         label="Cuerpo"
         value={cuerpo}
@@ -58,7 +58,7 @@ const Inputs = ({ titulo, cuerpo, imagen }) => {
         validationError="Ingresa una cuerpo válida"
         required
       />
-      <Uploader model="noticia" url={imagen} />
+      <Uploader model="notificacion" url={imagen} /> */}
     </React.Fragment>
   )
 }
