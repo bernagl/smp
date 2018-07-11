@@ -50,10 +50,10 @@ class Sidebar extends Component {
               <span>Noticiaciones</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="pago">
-            <NavLink activeClassName="active" to="/pago">
-              <Icon type="wallet" />
-              <span>Pagos</span>
+          <Menu.Item key="categoria">
+            <NavLink activeClassName="active" to="/categoria">
+              <Icon type="tags-o" />
+              <span>Categorías</span>
             </NavLink>
           </Menu.Item>
           <Menu.Item key="instructor">
