@@ -5,19 +5,28 @@ import Input from '../components/Input'
 import Label from '../components/Label'
 import Uploader from '../components/Uploader'
 import moment from 'moment'
-import { DatePicker } from 'antd'
+import { DatePicker, Select } from 'antd'
+import { getDocumentsByModel } from '../actions/firebase_actions'
 
 const { RangePicker } = DatePicker
 
 export default class Evento extends Component {
+  state = { categorias: [] }
+  async componentDidMount() {
+    const categorias = await getDocumentsByModel('categoria')
+    this.setState({ categorias })
+  }
+
   submit = model => {
-    const { fechas } = this.state
-    if (!fechas) return false
+    const { categoria, inicio, fin } = this.state
+    // if (!&& !model.inicio && !model.fin) return false
+    if (!categoria) return false
     return {
       ...model,
       fecha: model.fecha ? model.fecha : moment().format('L'),
-      inicio: moment(fechas[0]).format(),
-      fin: moment(fechas[1]).format()
+      inicio: moment(inicio).format(),
+      categoria,
+      fin: moment(fin).format()
     }
   }
 
@@ -25,7 +34,7 @@ export default class Evento extends Component {
     this.setState({ [key]: value })
   }
 
-  Inputs = ({ titulo, cuerpo, imagen, inicio, fin }) => {
+  Inputs = ({ titulo, cuerpo, categoria, imagen, inicio, fin }) => {
     return (
       <React.Fragment>
         <Input
@@ -44,11 +53,37 @@ export default class Evento extends Component {
           validationError="Ingresa una cuerpo válida"
           required
         />
+        <Label label="Categoría">
+          <Select
+            placeholder="Selecciona una categoría"
+            onChange={categoria => this.setValue('categoria', categoria)}
+            defaultValue={categoria}
+          >
+            {this.state.categorias.map(({ nombre, id }, i) => (
+              <Select.Option key={id} value={id}>
+                {nombre}
+              </Select.Option>
+            ))}
+          </Select>
+        </Label>
         <Label label="Fechas">
-          <RangePicker
+          {/* <RangePicker
             onChange={fechas => this.setValue('fechas', fechas)}
+            value={[moment(inicio), moment(fin)]}
             defaultValue={[moment(inicio), moment(fin)]}
             placeholder={['Inicio', 'Fin']}
+          /> */}
+          <DatePicker
+            value={moment(inicio)}
+            placeholder="Inicio"
+            onChange={inicio => this.setValue('inicio', inicio)}
+            onOpenChange={inicio => this.setValue('inicio', inicio)}
+          />
+          <DatePicker
+            value={moment(fin)}
+            placeholder="Fin"
+            onChange={fin => this.setValue('fin', fin)}
+            onOpenChange={fin => this.setValue('fin', fin)}
           />
         </Label>
         <Label label="Imagen">
