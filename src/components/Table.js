@@ -65,7 +65,7 @@ export default class Datatable extends Component {
 
   render() {
     const {
-      data,
+      //   data,
       exportData,
       hideDisabled,
       loading,
@@ -75,6 +75,7 @@ export default class Datatable extends Component {
     const {
       Columns,
       download,
+      data,
       Inputs,
       model,
       redirect,
@@ -130,30 +131,6 @@ export default class Datatable extends Component {
             search={true}
             searchPlaceholder="Buscar"
           />
-          <Modal
-            title={
-              title ? title : selected ? `Editar ${model}` : `Agregar ${model}`
-            }
-            visible={modal}
-            onOk={this.handleOk}
-            okText="Guardar"
-            onCancel={this.closeModal}
-            cancelText="Cancelar"
-            confirmLoading={loading}
-            destroyOnClose={true}
-          >
-            <Form
-              updateData={this.setDataToState}
-              action={action}
-              selected={selected}
-              submit={submit}
-              model={model}
-              closeModal={this.closeModal}
-              ref={this.formRef}
-            >
-              {Inputs(selected ? selected : {})}
-            </Form>
-          </Modal>
         </div>
       </div>
     )

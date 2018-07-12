@@ -43,7 +43,6 @@ export default class Form extends Component {
     if (!customModel) {
       return
     }
-    console.log(customModel)
     const response = await this.props.action({
       id: selected ? selected.id : null,
       ...customModel

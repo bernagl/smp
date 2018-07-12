@@ -4,6 +4,8 @@ import DatatableActions from '../components/DatatableActions'
 import Input from '../components/Input'
 import Uploader from '../components/Uploader'
 import moment from 'moment'
+import { Link } from 'react-router-dom'
+import { Icon } from 'antd'
 
 export default () => {
   const submit = model => {
@@ -16,6 +18,7 @@ export default () => {
       Inputs={Inputs}
       Columns={Columns}
       submit={submit}
+      redirect="/noticias"
     />
   )
 }
@@ -28,12 +31,9 @@ const Columns = (showModal, setDataToState) => {
       label: 'Acciones',
       key: 'actions',
       Render: selected => (
-        <DatatableActions
-          model="noticia"
-          selected={selected}
-          showModal={showModal}
-          setDataToState={setDataToState}
-        />
+        <Link to={`/noticias/${selected.id}`}>
+          <Icon type="eye" />
+        </Link>
       )
     }
   ]

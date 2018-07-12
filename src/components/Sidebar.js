@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { NavLink, withRouter } from 'react-router-dom'
+import logo from '../assets/smp.png'
 
 const { SubMenu } = Menu
 const { Sider } = Layout
@@ -20,10 +21,7 @@ class Sidebar extends Component {
         }
       >
         <div className="logo p-4">
-          <img
-            alt=""
-            src="http://impulse-fitnessstudio.com/wp-content/uploads/2016/12/logo-impulsfit.png"
-          />
+          <img alt="" src={logo} />
         </div>
         <Menu theme="dark" defaultSelectedKeys={[path]} mode="inline">
           <Menu.Item key="dashboard">
@@ -38,34 +36,60 @@ class Sidebar extends Component {
               <span>Noticias</span>
             </NavLink>
           </Menu.Item>
-          <Menu.Item key="equipo">
-            <NavLink activeClassName="active" to="/equipo">
-              <Icon type="usergroup-add" />
-              <span>Equipos</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="evento">
-            <NavLink activeClassName="active" to="/evento">
-              <Icon type="calendar" />
-              <span>Eventos</span>
-            </NavLink>
-          </Menu.Item>
-          {/* <Menu.Item key="2">
-            <NavLink activeClassName="active" to="/model/clase">
-              <Icon type="desktop" />
-              <span>Clases</span>
-            </NavLink>
-          </Menu.Item> */}
+          <SubMenu
+            key="clases"
+            title={
+              <span>
+                <Icon type="schedule" />
+                <span>Happenings</span>
+              </span>
+            }
+          >
+            <Menu.Item key="categoria">
+              <NavLink activeClassName="active" to="/categoria">
+                <Icon type="tags-o" />
+                <span>Categorías</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="evento">
+              <NavLink activeClassName="active" to="/evento">
+                <Icon type="calendar" />
+                <span>Eventos</span>
+              </NavLink>
+            </Menu.Item>
+          </SubMenu>
+          <SubMenu
+            key="votaciones"
+            title={
+              <span>
+                <Icon type="schedule" />
+                <span>Votación</span>
+              </span>
+            }
+          >
+            <Menu.Item key="equipo">
+              <NavLink activeClassName="active" to="/equipo">
+                <Icon type="usergroup-add" />
+                <span>Equipos</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="resultado">
+              <NavLink activeClassName="active" to="/resultado">
+                <Icon type="area-chart" />
+                <span>Resultados</span>
+              </NavLink>
+            </Menu.Item>
+            <Menu.Item key="ajuste">
+              <NavLink activeClassName="active" to="/ajuste">
+                <Icon type="setting" />
+                <span>Ajustes</span>
+              </NavLink>
+            </Menu.Item>
+          </SubMenu>
           <Menu.Item key="notificacion">
             <NavLink activeClassName="active" to="/notificacion">
               <Icon type="notification" />
               <span>Notificaciones</span>
-            </NavLink>
-          </Menu.Item>
-          <Menu.Item key="categoria">
-            <NavLink activeClassName="active" to="/categoria">
-              <Icon type="tags-o" />
-              <span>Categorías</span>
             </NavLink>
           </Menu.Item>
           <Menu.Item key="usuario">
@@ -74,26 +98,6 @@ class Sidebar extends Component {
               <span>Usuarios</span>
             </NavLink>
           </Menu.Item>
-          {/* <SubMenu
-            key="clases"
-            title={
-              <span>
-                <Icon type="schedule" />
-                <span>Clases</span>
-              </span>
-            }
-          >
-            <Menu.Item key="clase">
-              <NavLink activeClassName="active" to="/clase">
-                Lista de clases
-              </NavLink>
-            </Menu.Item>
-            <Menu.Item key="horario">
-              <NavLink activeClassName="active" to="/horario">
-                Asignar horario
-              </NavLink>
-            </Menu.Item>
-          </SubMenu> */}
           {/* <SubMenu
             key="sub2"
             title={

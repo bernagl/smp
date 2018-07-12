@@ -25,6 +25,11 @@
   margin-bottom: 5px;
 }
 
+.global-search-input {
+  z-index: 2;
+  top: 0px !important;
+}
+
 .ant-layout-header {
   background: #22262d !important;
 }

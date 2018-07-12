@@ -39,9 +39,49 @@ export default class Equipo extends Component {
     const { data, equipo, usuarios } = this.state
     const action = equipo ? updateDocument('equipo') : addDocument('equipo')
     return (
-      <React.Fragment>
-        {this.props.match.params.id ? (
-          equipo && (
+      <div className="row">
+        <div className="col-6">
+          {this.props.match.params.id ? (
+            equipo && (
+              <Form ref={this.formRef} submit={this.submit} action={action}>
+                <Input
+                  name="nombre"
+                  label="Nombre"
+                  value={equipo ? equipo.nombre : ''}
+                  validations="minLength:3"
+                  validationError="Ingresa un nombre válido"
+                  required
+                />
+                <Input
+                  name="descripcion"
+                  label="Descripción"
+                  value={equipo ? equipo.descripcion : ''}
+                  validations="minLength:1"
+                  validationError=""
+                  required
+                />
+                <Label label="Miembros del equipo">
+                  <Select
+                    mode="tags"
+                    value={usuarios}
+                    defaultValue={usuarios}
+                    onChange={this.handleUsuarios}
+                    tokenSeparators={[',']}
+                  >
+                    {/* {usuarios.map(usuario => (
+                    <Select.Option key={usuario.id}>{usuario.correo}</Select.Option>
+                  ))} */}
+                  </Select>
+                </Label>
+                <Button
+                  type="primary"
+                  onClick={() => this.formRef.current.submit()}
+                >
+                  Guardar equipo
+                </Button>
+              </Form>
+            )
+          ) : (
             <Form ref={this.formRef} submit={this.submit} action={action}>
               <Input
                 name="nombre"
@@ -68,8 +108,8 @@ export default class Equipo extends Component {
                   tokenSeparators={[',']}
                 >
                   {/* {usuarios.map(usuario => (
-                    <Select.Option key={usuario.id}>{usuario.correo}</Select.Option>
-                  ))} */}
+              <Select.Option key={usuario.id}>{usuario.correo}</Select.Option>
+            ))} */}
                 </Select>
               </Label>
               <Button
@@ -79,47 +119,9 @@ export default class Equipo extends Component {
                 Guardar equipo
               </Button>
             </Form>
-          )
-        ) : (
-          <Form ref={this.formRef} submit={this.submit} action={action}>
-            <Input
-              name="nombre"
-              label="Nombre"
-              value={equipo ? equipo.nombre : ''}
-              validations="minLength:3"
-              validationError="Ingresa un nombre válido"
-              required
-            />
-            <Input
-              name="descripcion"
-              label="Descripción"
-              value={equipo ? equipo.descripcion : ''}
-              validations="minLength:1"
-              validationError=""
-              required
-            />
-            <Label>
-              <Select
-                mode="tags"
-                value={usuarios}
-                defaultValue={usuarios}
-                onChange={this.handleUsuarios}
-                tokenSeparators={[',']}
-              >
-                {/* {usuarios.map(usuario => (
-              <Select.Option key={usuario.id}>{usuario.correo}</Select.Option>
-            ))} */}
-              </Select>
-            </Label>
-            <Button
-              type="primary"
-              onClick={() => this.formRef.current.submit()}
-            >
-              Guardar equipo
-            </Button>
-          </Form>
-        )}
-      </React.Fragment>
+          )}
+        </div>
+      </div>
     )
   }
 }
