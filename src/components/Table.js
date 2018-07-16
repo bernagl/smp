@@ -87,21 +87,6 @@ export default class Datatable extends Component {
     return (
       <div className="row">
         <div className="col-12 my-2">
-          {!redirect ? (
-            <Button
-              type="primary"
-              onClick={() => this.showModal()}
-              className="float-right"
-            >
-              Agregar
-            </Button>
-          ) : (
-            <Link to={redirect}>
-              <Button type="primary" className="float-right">
-                Agregar
-              </Button>
-            </Link>
-          )}
           {!showHideDisabled && (
             <span
               onClick={this.toggleDisabled}

@@ -1,8 +1,9 @@
 import React from 'react'
 import { Dropdown, Icon, Menu, message } from 'antd'
 import { updateDocument } from '../actions/firebase_actions'
+import { Link } from 'react-router-dom'
 
-export default ({ model, selected, showModal, setDataToState }) => {
+export default ({ model, selected, showModal, setDataToState, OpenLink, redirect }) => {
   const update = async status => {
     const r = await updateDocument(model)({ ...selected, status })
     setDataToState()
@@ -28,11 +29,18 @@ export default ({ model, selected, showModal, setDataToState }) => {
           </a>
         </Dropdown>
       )}
-      <Icon
-        type="edit"
-        onClick={() => showModal(selected)}
-        className="dt-edit-button"
-      />
+      {showModal && (
+        <Icon
+          type="edit"
+          onClick={() => showModal(selected)}
+          className="dt-edit-button"
+        />
+      )}
+      {OpenLink && (
+        <Link to={`/${redirect}/${selected.id}`}>
+          <Icon type="eye" />
+        </Link>
+      )}
     </div>
   )
 }

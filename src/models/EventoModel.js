@@ -75,13 +75,13 @@ export default class Evento extends Component {
             placeholder={['Inicio', 'Fin']}
           /> */}
           <DatePicker
-            value={moment(inicio)}
+            defaultValue={moment(this.state.inicio)}
             placeholder="Inicio"
             onChange={inicio => this.setValue('inicio', inicio)}
             onOpenChange={inicio => this.setValue('inicio', inicio)}
           />
           <DatePicker
-            value={moment(fin)}
+            defaultValue={moment(this.state.fin)}
             placeholder="Fin"
             onChange={fin => this.setValue('fin', fin)}
             onOpenChange={fin => this.setValue('fin', fin)}
@@ -107,8 +107,8 @@ export default class Evento extends Component {
 
 const Columns = (showModal, setDataToState) => {
   return [
-    { label: 'Título', key: 'titulo' },
     { label: 'Fecha', key: 'fecha' },
+    { label: 'Título', key: 'titulo' },
     {
       label: 'Acciones',
       key: 'actions',

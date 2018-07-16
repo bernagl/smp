@@ -31,9 +31,13 @@ const Columns = (showModal, setDataToState) => {
       label: 'Acciones',
       key: 'actions',
       Render: selected => (
-        <Link to={`/noticias/${selected.id}`}>
-          <Icon type="eye" />
-        </Link>
+        <DatatableActions
+          selected={selected}
+          setDataToState={setDataToState}
+          OpenLink
+          model="noticia"
+          redirect="noticias"
+        />
       )
     }
   ]

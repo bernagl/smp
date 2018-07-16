@@ -16,7 +16,7 @@ export default class Dashboard extends Component {
     const activos = eventos.filter(
       ({ inicio, fin }) =>
         moment(inicio).format('L') <= moment().format('L') &&
-        moment(fin).format('L') < moment().format('L')
+        moment(fin).format('L') > moment().format('L')
     )
     this.setState({ eventos, activos })
   }
@@ -36,13 +36,13 @@ export default class Dashboard extends Component {
         <div className="col-12 mb-5">
           <div className="row">
             <div className="col-4">
-              <Card title="Eventos este mes">
-                <p>2 Eventos</p>
+              <Card title="Votaciones">
+                <p>8753 votaciones</p>
               </Card>
             </div>
             <div className="col-4">
               <Card title="Usuarios">
-                <p>Total: 500</p>
+                <p>Total: 10540</p>
                 <p>Activos: 150</p>
               </Card>
             </div>
@@ -54,12 +54,12 @@ export default class Dashboard extends Component {
           </div>
         </div>
         <div className="col-12">
-          <h4>Eventos activos: </h4>
+          <h2>Eventos activos: </h2>
           <div className="row">
             {activos.length > 0 ? (
               activos.map(({ id, titulo, votacion }) => (
                 <div className="col-12" key={id}>
-                  <h5>{titulo}</h5>
+                  <h3>{titulo}</h3>
                   <a onClick={() => this.updateVotacion(id, votacion)}>
                     {votacion === 0
                       ? 'Activar votación'

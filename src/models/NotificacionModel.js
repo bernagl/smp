@@ -24,18 +24,18 @@ const Columns = (showModal, setDataToState) => {
   return [
     { label: 'Título', key: 'titulo' },
     { label: 'Fecha', key: 'fecha' },
-    {
-      label: 'Acciones',
-      key: 'actions',
-      Render: selected => (
-        <DatatableActions
-          model="notificacion"
-          selected={selected}
-          showModal={showModal}
-          setDataToState={setDataToState}
-        />
-      )
-    }
+    // {
+    //   label: 'Acciones',
+    //   key: 'actions',
+    //   Render: selected => (
+    //     <DatatableActions
+    //       model="notificacion"
+    //       selected={selected}
+    //       showModal={showModal}
+    //       setDataToState={setDataToState}
+    //     />
+    //   )
+    // }
   ]
 }
 
