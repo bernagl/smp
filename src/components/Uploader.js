@@ -10,6 +10,10 @@ export default class Uploader extends React.Component {
     this.setState({ url: this.props.url })
   }
 
+  componentWillReceiveProps(newProps) {
+    newProps.url !== this.props.url && this.setState({ url: newProps.url })
+  }
+
   handleImage = async e => {
     const image = e.target.files[0]
     this.setState({ loading: true })
@@ -19,8 +23,7 @@ export default class Uploader extends React.Component {
   }
 
   render() {
-    const { name, loading, url } = this.state
-    const { value = '' } = this.props
+    const { name, loading, url, value } = this.state
     return (
       <div className="uploader col-12 pl-0">
         <input

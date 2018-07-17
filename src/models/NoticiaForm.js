@@ -19,7 +19,7 @@ export default class Equipo extends Component {
     this.formRef = React.createRef()
     this.handleChange = this.handleChange.bind(this)
     this.state = {
-      noticia: null,
+      noticia: {},
       cuerpo: ''
     }
   }
@@ -30,10 +30,8 @@ export default class Equipo extends Component {
 
   async componentDidMount() {
     const { id } = this.props.match.params
-    const noticia = id
-      ? await getDocument('noticia')(id)
-      : { titulo: '', cuerpo: '', fecha: '', imagen: '' }
-    this.setState({ noticia, cuerpo: noticia.cuerpo })
+    const noticia = id ? await getDocument('noticia')(id) : {}
+    this.setState({ ...noticia })
   }
 
   submit = model => {
@@ -44,60 +42,31 @@ export default class Equipo extends Component {
   }
 
   render() {
-    const { noticia } = this.state
+    const { titulo, imagen, cuerpo } = this.state
     const { id } = this.props.match.params
     const action = id ? updateDocument('noticia') : addDocument('noticia')
+    console.log(this.state)
     return (
       <div>
-        {this.props.match.params.id
-          ? noticia && (
-              <Form ref={this.formRef} submit={this.submit} action={action}>
-                <Input
-                  name="titulo"
-                  label="Título"
-                  value={noticia.titulo}
-                  validations="minLength:3"
-                  validationError="Ingresa un título válido"
-                  required
-                />
-                <Uploader model="noticia" url={noticia.imagen} />
-                <ReactQuill
-                  value={this.state.cuerpo}
-                  onChange={this.handleChange}
-                />
-                <Button
-                  type="primary"
-                  onClick={() => this.formRef.current.submit()}
-                  className="mt-2"
-                >
-                  Guardar noticia
-                </Button>
-              </Form>
-            )
-          : noticia && (
-              <Form ref={this.formRef} submit={this.submit} action={action}>
-                <Input
-                  name="titulo"
-                  label="Título"
-                  value={noticia.titulo}
-                  validations="minLength:3"
-                  validationError="Ingresa un título válido"
-                  required
-                />
-                <Uploader model="noticia" url={noticia.imagen} />
-                <ReactQuill
-                  value={this.state.cuerpo}
-                  onChange={this.handleChange}
-                />
-                <Button
-                  type="primary"
-                  onClick={() => this.formRef.current.submit()}
-                  className="mt-2"
-                >
-                  Guardar noticia
-                </Button>
-              </Form>
-            )}
+        <Form ref={this.formRef} submit={this.submit} action={action}>
+          <Input
+            name="titulo"
+            label="Título"
+            value={titulo}
+            validations="minLength:3"
+            validationError="Ingresa un título válido"
+            required
+          />
+          <Uploader model="noticia" url={imagen} />
+          <ReactQuill value={cuerpo} onChange={this.handleChange} />
+          <Button
+            type="primary"
+            onClick={() => this.formRef.current.submit()}
+            className="mt-2"
+          >
+            Guardar noticia
+          </Button>
+        </Form>
       </div>
     )
   }
