@@ -83,3 +83,8 @@
   color: #1890ff;
   cursor: pointer;
 }
+
+/*  */
+.uploader label {
+  cursor: pointer;
+}

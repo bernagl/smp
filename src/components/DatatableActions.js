@@ -3,7 +3,7 @@ import { Dropdown, Icon, Menu, message } from 'antd'
 import { updateDocument } from '../actions/firebase_actions'
 import { Link } from 'react-router-dom'
 
-export default ({ model, selected, showModal, setDataToState, OpenLink, redirect }) => {
+export default ({ model, selected, showModal, setDataToState, redirect }) => {
   const update = async status => {
     const r = await updateDocument(model)({ ...selected, status })
     setDataToState()
@@ -36,7 +36,7 @@ export default ({ model, selected, showModal, setDataToState, OpenLink, redirect
           className="dt-edit-button"
         />
       )}
-      {OpenLink && (
+      {redirect && (
         <Link to={`/${redirect}/${selected.id}`}>
           <Icon type="eye" />
         </Link>

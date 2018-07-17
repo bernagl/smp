@@ -34,7 +34,6 @@ const Columns = (showModal, setDataToState) => {
         <DatatableActions
           selected={selected}
           setDataToState={setDataToState}
-          OpenLink
           model="noticia"
           redirect="noticias"
         />

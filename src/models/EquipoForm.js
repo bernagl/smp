@@ -8,6 +8,7 @@ import { Button, Select } from 'antd'
 import { addDocument, updateDocument } from '../actions/firebase_actions'
 import { getUsuariosByEquipo } from '../actions/equipo_actions'
 import Form from '../components/Form2'
+import { Link } from 'react-router-dom'
 
 export default class Equipo extends Component {
   constructor(props) {
@@ -25,10 +26,12 @@ export default class Equipo extends Component {
   }
 
   submit = model => {
+    const { id } = this.props.match.params
     const { usuarios: u, equipo } = this.state
     let usuarios = {}
     u.map(usuario => (usuarios = { ...usuarios, [usuario]: true }))
-    return { ...model, usuarios, id: equipo.id }
+
+    return id ? { ...model, usuarios, id: equipo.id } : { ...model, usuarios }
   }
 
   handleUsuarios = usuarios => {
@@ -50,6 +53,22 @@ export default class Equipo extends Component {
                   value={equipo ? equipo.nombre : ''}
                   validations="minLength:3"
                   validationError="Ingresa un nombre válido"
+                  required
+                />
+                <Input
+                  name="correo"
+                  label="Correo"
+                  value={equipo ? equipo.correo : ''}
+                  validations="isEmail"
+                  validationError="Ingresa un correo válido"
+                  required
+                />
+                <Input
+                  name="telefono"
+                  label="Teléfono"
+                  value={equipo ? equipo.telefono : ''}
+                  validations="isNumeric"
+                  validationError="Ingresa un teléfono válido"
                   required
                 />
                 <Input
@@ -92,6 +111,22 @@ export default class Equipo extends Component {
                 required
               />
               <Input
+                name="correo"
+                label="Correo"
+                value={equipo ? equipo.correo : ''}
+                validations="isEmail"
+                validationError="Ingresa un correo válido"
+                required
+              />
+              <Input
+                name="telefono"
+                label="Teléfono"
+                value={equipo ? equipo.telefono : ''}
+                validations="isNumeric"
+                validationError="Ingresa un teléfono válido"
+                required
+              />
+              <Input
                 name="descripcion"
                 label="Descripción"
                 value={equipo ? equipo.descripcion : ''}
@@ -120,6 +155,9 @@ export default class Equipo extends Component {
               </Button>
             </Form>
           )}
+        </div>
+        <div className="col-6">
+          <Link to="/equipo">Lista de equipos</Link>
         </div>
       </div>
     )

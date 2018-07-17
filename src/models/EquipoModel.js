@@ -1,5 +1,6 @@
 import React from 'react'
 import Datatable from '../components/Datatable'
+import DatatableActions from '../components/DatatableActions'
 import { Icon } from 'antd'
 import { Link } from 'react-router-dom'
 
@@ -15,7 +16,7 @@ export default () => {
   )
 }
 
-const Columns = showModal => {
+const Columns = (showModal, setDataToState) => {
   return [
     {
       label: 'Nombre',
@@ -26,9 +27,12 @@ const Columns = showModal => {
       label: 'Acciones',
       key: 'actions',
       Render: selected => (
-        <Link to={`/equipos/${selected.id}`}>
-          <Icon type="eye" />
-        </Link>
+        <DatatableActions
+          selected={selected}
+          model="equipo"
+          setDataToState={setDataToState}
+          redirect="equipos"
+        />
       )
     }
   ]
