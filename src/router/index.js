@@ -6,6 +6,7 @@ import Dashboard from '../models/Dashboard'
 import Equipos from '../models/EquipoModel'
 import EquipoForm from '../models/EquipoForm'
 import Eventos from '../models/EventoModel'
+import EventoForm from '../models/EventoForm'
 import Noticias from '../models/NoticiaModel'
 import NoticiasForm from '../models/NoticiaForm'
 import Notificaciones from '../models/NotificacionModel'
@@ -20,6 +21,7 @@ export const Router = () => {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/equipo" component={Equipos} />
       <Route path="/equipos/:id?" component={EquipoForm} />
+      <Route path="/eventos/:id?" component={EventoForm} />
       <Route path="/evento" component={Eventos} />
       <Route path="/noticia" component={Noticias} />
       <Route path="/noticias/:id?" component={NoticiasForm} />

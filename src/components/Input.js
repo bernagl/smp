@@ -10,10 +10,11 @@ class Input extends Component {
     this.setState({ value: this.props.value })
   }
 
-  // componentWillReceiveProps(nextProps) {
-  //   nextProps.value !== this.props.value &&
-  //     (this.props.setValue(this.props.value), this.setState({ value: this.props.value }))
-  // }
+  componentWillReceiveProps(nextProps) {
+    nextProps.value !== this.props.value &&
+      (this.props.setValue(this.props.value),
+      this.setState({ value: this.props.value }))
+  }
 
   onChange = e => {
     const value = e.currentTarget.value
@@ -27,10 +28,15 @@ class Input extends Component {
     this.setState({ validate: true, value })
   }
 
+  changeValue(event) {
+    this.props.setValue(event.currentTarget.value)
+  }
+
   render() {
-    const { validate, value } = this.state
+    const { validate } = this.state
     const { label, name, placeholder, type } = this.props
     const errorMessage = this.props.getErrorMessage()
+    const value = this.props.getValue() || ''
     return (
       <Item
         label={label}

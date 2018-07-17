@@ -1,43 +1,70 @@
 import React, { Component } from 'react'
-import Datatable from '../components/Datatable'
 import DatatableActions from '../components/DatatableActions'
 import Input from '../components/Input'
+import Form from '../components/Form2'
 import Label from '../components/Label'
 import Uploader from '../components/Uploader'
 import moment from 'moment'
-import { DatePicker, Select } from 'antd'
-import { getDocumentsByModel } from '../actions/firebase_actions'
-
-const { RangePicker } = DatePicker
+import { Button, DatePicker, Select } from 'antd'
+import {
+  addDocument,
+  getDocumentsByModel,
+  getDocument,
+  updateDocument
+} from '../actions/firebase_actions'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css'
 
 export default class Evento extends Component {
-  state = { categorias: [] }
+  constructor(props) {
+    super(props)
+    this.formRef = React.createRef()
+    this.state = {
+      evento: {},
+      categorias: [],
+      cuerpo: ''
+    }
+  }
+
   async componentDidMount() {
+    const { id } = this.props.match.params
     const categorias = await getDocumentsByModel('categoria')
-    this.setState({ categorias })
+    const evento = id ? await getDocument('evento')(id) : {}
+    this.setState({ ...evento, categorias })
   }
 
   submit = model => {
-    const { categoria, inicio, fin } = this.state
-    // if (!&& !model.inicio && !model.fin) return false
+    const { cuerpo, categoria, inicio, fin } = this.state
+    const { id } = this.props.match.params
     if (!categoria) return false
-    return {
+    const r = {
       ...model,
       fecha: model.fecha ? model.fecha : moment().format('L'),
       inicio: moment(inicio).format(),
-      votacion: 0,
       categoria,
+      cuerpo,
       fin: moment(fin).format()
     }
+
+    return id ? { ...r, id } : r
   }
 
   setValue = (key, value) => {
     this.setState({ [key]: value })
   }
 
-  Inputs = ({ titulo, cuerpo, categoria, imagen, inicio, fin }) => {
+  //   Inputs = ({ titulo, cuerpo, categoria, imagen }) => {
+  //     return (
+
+  //     )
+  //   }
+  render() {
+    const { titulo, cuerpo, categoria, categorias, imagen } = this.state
+    const { id } = this.props.match.params
+    const action = id ? updateDocument('evento') : addDocument('evento')
+    console.log(categoria)
     return (
-      <React.Fragment>
+      <Form ref={this.formRef} submit={this.submit} action={action}>
         <Input
           name="titulo"
           label="Título"
@@ -46,26 +73,20 @@ export default class Evento extends Component {
           validationError="Ingresa un título válido"
           required
         />
-        <Input
-          name="cuerpo"
-          label="Cuerpo"
-          value={cuerpo}
-          validations="minLength:3"
-          validationError="Ingresa una cuerpo válida"
-          required
-        />
         <Label label="Categoría">
-          <Select
-            placeholder="Selecciona una categoría"
-            onChange={categoria => this.setValue('categoria', categoria)}
-            defaultValue={categoria}
-          >
-            {this.state.categorias.map(({ nombre, id }, i) => (
-              <Select.Option key={id} value={id}>
-                {nombre}
-              </Select.Option>
-            ))}
-          </Select>
+          {categorias.length > 0 && (
+            <Select
+              placeholder="Selecciona una categoría"
+              onChange={categoria => this.setValue('categoria', categoria)}
+              defaultValue={categoria}
+            >
+              {categorias.map(({ nombre, id }, i) => (
+                <Select.Option key={id} value={id}>
+                  {nombre}
+                </Select.Option>
+              ))}
+            </Select>
+          )}
         </Label>
         <Label label="Fechas">
           <DatePicker
@@ -84,17 +105,18 @@ export default class Evento extends Component {
         <Label label="Imagen">
           <Uploader model="evento" url={imagen} />
         </Label>
-      </React.Fragment>
-    )
-  }
-  render() {
-    return (
-      <Datatable
-        model="evento"
-        Inputs={this.Inputs}
-        Columns={Columns}
-        submit={this.submit}
-      />
+        <ReactQuill
+          value={this.state.cuerpo}
+          onChange={cuerpo => this.setValue('cuerpo', cuerpo)}
+        />
+        <Button
+          type="primary"
+          onClick={() => this.formRef.current.submit()}
+          className="mt-2"
+        >
+          Guardar noticia
+        </Button>
+      </Form>
     )
   }
 }
@@ -110,9 +132,8 @@ const Columns = (showModal, setDataToState) => {
         <DatatableActions
           model="evento"
           selected={selected}
-          // showModal={showModal}
+          showModal={showModal}
           setDataToState={setDataToState}
-          redirect="eventos"
         />
       )
     }
