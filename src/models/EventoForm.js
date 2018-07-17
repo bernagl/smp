@@ -29,6 +29,7 @@ export default class Evento extends Component {
   async componentDidMount() {
     const { id } = this.props.match.params
     const categorias = await getDocumentsByModel('categoria')
+    // const categorias = c.filter(categoria => categoria.status === 1)
     const evento = id ? await getDocument('evento')(id) : {}
     this.setState({ ...evento, categorias })
   }
@@ -76,8 +77,12 @@ export default class Evento extends Component {
               onChange={categoria => this.setValue('categoria', categoria)}
               defaultValue={categoria}
             >
-              {categorias.map(({ nombre, id }, i) => (
-                <Select.Option key={id} value={id}>
+              {categorias.map(({ nombre, id, status }, i) => (
+                <Select.Option
+                  key={id}
+                  value={id}
+                  disabled={status === 1 ? false : true}
+                >
                   {nombre}
                 </Select.Option>
               ))}
@@ -90,6 +95,7 @@ export default class Evento extends Component {
             defaltValue={moment()}
             placeholder="Inicio"
             onChange={inicio => this.setValue('inicio', inicio)}
+            showTime
             // onOpenChange={inicio => this.setValue('inicio', inicio)}
           />
           <DatePicker
@@ -97,6 +103,7 @@ export default class Evento extends Component {
             defaltValue={moment()}
             placeholder="Fin"
             onChange={fin => this.setValue('fin', fin)}
+            showTime
             // onOpenChange={fin => this.setValue('fin', fin)}
           />
         </Label>

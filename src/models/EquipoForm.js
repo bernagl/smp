@@ -3,10 +3,10 @@ import Datatable from '../components/Datatable'
 import DatatableActions from '../components/DatatableActions'
 import Input from '../components/Input'
 import Label from '../components/Label'
-import { Button, Select } from 'antd'
+import { Button, message, Select } from 'antd'
 // import { getDocument, getDocumentsByModel } from '../actions/firebase_actions'
 import { addDocument, updateDocument } from '../actions/firebase_actions'
-import { getUsuariosByEquipo } from '../actions/equipo_actions'
+import { checkIfExists, getUsuariosByEquipo } from '../actions/equipo_actions'
 import Form from '../components/Form2'
 import { Link } from 'react-router-dom'
 
@@ -25,10 +25,12 @@ export default class Equipo extends Component {
     this.setState({ usuarios, equipo })
   }
 
-  submit = model => {
+  submit = async model => {
     const { id } = this.props.match.params
     const { usuarios: u, equipo } = this.state
     let usuarios = {}
+    const isEqipo = await this.checkIfExists(model, id)
+    if (!isEqipo) return
     u.map(usuario => (usuarios = { ...usuarios, [usuario]: true }))
 
     return id ? { ...model, usuarios, id: equipo.id } : { ...model, usuarios }
@@ -36,6 +38,26 @@ export default class Equipo extends Component {
 
   handleUsuarios = usuarios => {
     this.setState({ usuarios })
+  }
+
+  checkIfExists = async (model, id) => {
+    let isEquipo = await checkIfExists('nombre')(model.nombre, id)
+    if (isEquipo) {
+      message.error('El nombre del equipo no está disponible')
+      return false
+    }
+    isEquipo = await checkIfExists('correo')(model.correo, id)
+    if (isEquipo) {
+      message.error('El correo del equipo no está disponible')
+      return false
+    }
+    isEquipo = await checkIfExists('telefono')(model.telefono, id)
+    if (isEquipo) {
+      message.error('El teléfono del equipo no está disponible')
+      return false
+    }
+
+    return true
   }
 
   render() {
