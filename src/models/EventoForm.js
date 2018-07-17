@@ -53,16 +53,12 @@ export default class Evento extends Component {
     this.setState({ [key]: value })
   }
 
-  //   Inputs = ({ titulo, cuerpo, categoria, imagen }) => {
-  //     return (
-
-  //     )
-  //   }
   render() {
-    const { titulo, cuerpo, categoria, categorias, imagen } = this.state
+    const { inicio, fin, titulo, categoria, categorias, imagen } = this.state
     const { id } = this.props.match.params
     const action = id ? updateDocument('evento') : addDocument('evento')
-    console.log(categoria)
+    const f = fin ? moment(fin) : moment()
+    console.log(f)
     return (
       <Form ref={this.formRef} submit={this.submit} action={action}>
         <Input
@@ -90,16 +86,18 @@ export default class Evento extends Component {
         </Label>
         <Label label="Fechas">
           <DatePicker
-            defaultValue={moment(this.state.inicio)}
+            value={inicio ? moment(inicio) : moment()}
+            defaltValue={moment()}
             placeholder="Inicio"
             onChange={inicio => this.setValue('inicio', inicio)}
-            onOpenChange={inicio => this.setValue('inicio', inicio)}
+            // onOpenChange={inicio => this.setValue('inicio', inicio)}
           />
           <DatePicker
-            defaultValue={moment(this.state.fin)}
+            value={fin ? moment(fin) : moment()}
+            defaltValue={moment()}
             placeholder="Fin"
             onChange={fin => this.setValue('fin', fin)}
-            onOpenChange={fin => this.setValue('fin', fin)}
+            // onOpenChange={fin => this.setValue('fin', fin)}
           />
         </Label>
         <Label label="Imagen">
