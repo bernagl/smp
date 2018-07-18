@@ -12,6 +12,7 @@ import NoticiasForm from '../models/NoticiaForm'
 import Notificaciones from '../models/NotificacionModel'
 import Resultados from '../models/ResultadosModel'
 import Usuarios from '../models/UsuarioModel'
+import Login from '../views/Login'
 
 export const Router = () => {
   return (
@@ -32,6 +33,12 @@ export const Router = () => {
     </Switch>
   )
 }
+
+export const RouterAuth = () => (
+  <Switch>
+    <Route path="/login" component={Login} />
+  </Switch>
+)
 
 const Ekk = () => {
   return (

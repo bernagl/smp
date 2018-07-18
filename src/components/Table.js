@@ -83,6 +83,7 @@ export default class Datatable extends Component {
       submit,
       title
     } = this.props
+    console.log(Columns)
     const action = selected ? updateDocument(model) : addDocument(model)
     return (
       <div className="row">

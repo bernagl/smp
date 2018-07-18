@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { Router } from '../router'
+import { Router, RouterAuth } from '../router'
 import { Layout } from 'antd'
 import Sidebar from '../components/Sidebar'
 const { Content, Footer, Header } = Layout
 
 class Admin extends Component {
   render() {
-    return (
+    return 1 >= 2 ? (
       <Layout style={{ minHeight: '100vh' }}>
         <Sidebar />
         <Layout>
@@ -23,6 +23,8 @@ class Admin extends Component {
           <Footer style={{ textAlign: 'center' }}>Admin by Mobkii</Footer>
         </Layout>
       </Layout>
+    ) : (
+      <RouterAuth />
     )
   }
 }
