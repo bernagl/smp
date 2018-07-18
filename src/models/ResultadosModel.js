@@ -2,20 +2,29 @@ import React, { Component } from 'react'
 import Datatable from '../components/Table'
 import Label from '../components/Label'
 import { Card, Select } from 'antd'
+import { getResultados } from '../actions/resultado_actions'
 
 export default class Resultados extends Component {
   state = {
+    equipos: [],
+    color: [],
+    sabor: [],
+    sazon: [],
     columns: () => [
-      { label: 'Equipo', key: 'equipo' },
+      { label: 'Equipo', key: 'nombre' },
       { label: 'Sabor', key: 'sabor' },
       { label: 'Sazón', key: 'sazon' },
       { label: 'Color', key: 'color' }
     ]
   }
 
+  componentDidMount() {
+    getResultados(this)
+  }
+
   handleFilter = option => {
     let columns = [
-      { label: 'Equipo', key: 'equipo' },
+      { label: 'Equipo', key: 'nombre' },
       { label: 'Sabor', key: 'sabor' },
       { label: 'Sazón', key: 'sazon' },
       { label: 'Color', key: 'color' }
@@ -24,19 +33,19 @@ export default class Resultados extends Component {
     switch (option) {
       case 'sabor':
         columns = [
-          { label: 'Equipo', key: 'equipo' },
+          { label: 'Equipo', key: 'nombre' },
           { label: 'Sabor', key: 'sabor' }
         ]
         break
       case 'sazon':
         columns = [
-          { label: 'Equipo', key: 'equipo' },
+          { label: 'Equipo', key: 'nombre' },
           { label: 'Sazón', key: 'sazon' }
         ]
         break
       case 'color':
         columns = [
-          { label: 'Equipo', key: 'equipo' },
+          { label: 'Equipo', key: 'nombre' },
           { label: 'Color', key: 'color' }
         ]
         break
@@ -45,25 +54,46 @@ export default class Resultados extends Component {
     this.setState({ option, columns: () => columns })
   }
 
+  getFirstThree = (data, key) =>
+    Array(3)
+      .fill()
+      .map((e, i) => (
+        <h4 key={i}>
+          {data[i].nombre} - {data[i][key]}
+        </h4>
+      ))
+
   render() {
-    const { columns } = this.state
+    const { color, columns, equipos, sabor, sazon } = this.state
     return (
       <div className="row">
         <div className="col-12 mb-3">
           <div className="row">
             <div className="col-4">
               <Card title="Sabor">
-                <p>Equipo 1</p>
+                {color.length > 0 ? (
+                  this.getFirstThree(sabor, 'sabor')
+                ) : (
+                  <h4>Aún no hay votos</h4>
+                )}
               </Card>
             </div>
             <div className="col-4">
               <Card title="Sazón">
-                <p>Equipo 2</p>
+                {color.length > 0 ? (
+                  this.getFirstThree(sazon, 'sazon')
+                ) : (
+                  <h4>Aún no hay votos</h4>
+                )}
               </Card>
             </div>
             <div className="col-4">
               <Card title="Color">
-                <p>Equipo 3</p>
+                {color.length > 0 ? (
+                  this.getFirstThree(color, 'color')
+                ) : (
+                  <h4>Aún no hay votos</h4>
+                )}
               </Card>
             </div>
           </div>
@@ -80,7 +110,12 @@ export default class Resultados extends Component {
               <Select.Option value="color">Color</Select.Option>
             </Select>
           </Label>
-          <Datatable Columns={columns} data={data} showHideDisabled download />
+          <Datatable
+            Columns={columns}
+            data={equipos}
+            showHideDisabled
+            download
+          />
         </div>
       </div>
     )

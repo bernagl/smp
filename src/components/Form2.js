@@ -36,12 +36,13 @@ export default class Form extends Component {
     const { canSubmit } = this.state
     if (!canSubmit) {
       message.error('Por favor valida tu formulario')
-      return
+      return 404
     }
+    console.log(schema)
     const customModel = await submit(schema)
 
     if (!customModel) {
-      return
+      return 404
     }
     const response = await this.props.action({
       id: selected ? selected.id : null,
@@ -52,8 +53,10 @@ export default class Form extends Component {
       closeModal && closeModal()
       updateData && updateData()
       message.success('Registro guardado')
+      return 202
     } else {
       message.error('Ocurrió un error, por favor vuelve a intentarlo')
+      return 404
     }
   }
 

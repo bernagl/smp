@@ -1,17 +1,15 @@
 import { auth, db } from './firebase-config'
 
 export const login = async (correo, contrasena) => {
-  console.log(correo, contrasena)
   try {
     const { user } = await auth.signInWithEmailAndPassword(correo, contrasena)
-    console.log(user)
+    return 202
   } catch (e) {
-    console.error(e)
-    return false
+    return 404
   }
 }
 
-export const register = ({ correo, contrasena, nombre }) => async dispatch => {
+export const register = async (correo, contrasena, nombre) => {
   try {
     const { user } = await auth.createUserWithEmailAndPassword(
       correo,
@@ -22,6 +20,33 @@ export const register = ({ correo, contrasena, nombre }) => async dispatch => {
       .set({ correo, nombre, admin: true })
       .then(result => 202)
   } catch (e) {
-    return false
+    return 500
   }
+}
+
+export const authState = async context => {
+  auth.onAuthStateChanged(user => {
+    if (user) {
+      context.setState({
+        auth: { correo: user.email, uid: user.uid },
+        loading: false
+      })
+    } else {
+      context.setState({ auth: null, loading: false })
+    }
+  })
+}
+
+export const logout = () => {
+  auth
+    .signOut()
+    .then(() => console.log('logout'))
+    .catch(e => console.log(e))
+}
+
+export const recover = correo => {
+  return auth
+    .sendPasswordResetEmail(correo)
+    .then(r => r)
+    .catch(e => e)
 }

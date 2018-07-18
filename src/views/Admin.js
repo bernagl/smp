@@ -2,13 +2,25 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
 import { Router, RouterAuth } from '../router'
-import { Layout } from 'antd'
+import { Layout, Icon } from 'antd'
 import Sidebar from '../components/Sidebar'
+import { authState } from '../actions/firebase_auth'
 const { Content, Footer, Header } = Layout
 
 class Admin extends Component {
+  state = { auth: false, loading: true }
+
+  componentDidMount() {
+    authState(this)
+  }
+
   render() {
-    return 1 >= 2 ? (
+    const { auth, loading } = this.state
+    return loading ? (
+      <div className="row align-items-center justify-content-center fh">
+        <Icon type="loading" />
+      </div>
+    ) : auth ? (
       <Layout style={{ minHeight: '100vh' }}>
         <Sidebar />
         <Layout>

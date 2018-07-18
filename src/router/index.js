@@ -13,13 +13,14 @@ import Notificaciones from '../models/NotificacionModel'
 import Resultados from '../models/ResultadosModel'
 import Usuarios from '../models/UsuarioModel'
 import Login from '../views/Login'
+import Registro from '../views/Register'
+import Recover from '../views/Recover'
 
 export const Router = () => {
   return (
     <Switch>
       <Route path="/ajuste" component={Ajustes} />
       <Route path="/categoria" component={Categorias} />
-      <Route path="/dashboard" component={Dashboard} />
       <Route path="/equipo" component={Equipos} />
       <Route path="/equipos/:id?" component={EquipoForm} />
       <Route path="/eventos/:id?" component={EventoForm} />
@@ -29,14 +30,18 @@ export const Router = () => {
       <Route path="/notificacion" component={Notificaciones} />
       <Route path="/resultado" component={Resultados} />
       <Route path="/usuario" component={Usuarios} />
-      <Route component={Ekk} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route component={Dashboard} />
+      {/* <Route component={Ekk} /> */}
     </Switch>
   )
 }
 
 export const RouterAuth = () => (
   <Switch>
-    <Route path="/login" component={Login} />
+    <Route path="/registro" component={Registro} />
+    <Route path="/recover" component={Recover} />
+    <Route component={Login} />
   </Switch>
 )
 

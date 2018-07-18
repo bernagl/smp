@@ -48,6 +48,14 @@
   width: 100%;
 }
 
+.fh {
+  height: 100vh;
+}
+
+.center-text {
+  text-align: center;
+}
+
 .fade {
   animation: fade;
   animation-duration: 1s;

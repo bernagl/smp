@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import { Card } from 'antd'
 import { getDocumentsByModel } from '../actions/firebase_actions'
 import { updateVotacion } from '../actions/evento_actions'
+import { getVotaciones, votar } from '../actions/dashboard_actions'
 import moment from 'moment'
 
 export default class Dashboard extends Component {
-  state = { eventos: [], activos: [] }
+  state = { eventos: [], activos: [], votacion: 0, usuario: 0, equipos: 0 }
 
   componentDidMount() {
     this.setDataToState()
+    getVotaciones('votacion', this)
+    getVotaciones('usuario', this)
+    getVotaciones('equipo', this)
+    votar()
   }
 
   setDataToState = async () => {
@@ -29,26 +34,24 @@ export default class Dashboard extends Component {
   }
 
   render() {
-    const { activos, eventos } = this.state
-    console.log(this.state)
+    const { activos, eventos, votacion, equipo, usuario } = this.state
     return (
       <div className="row">
         <div className="col-12 mb-5">
           <div className="row">
             <div className="col-4">
               <Card title="Votaciones">
-                <p>8753 votaciones</p>
+                <p>Total: {votacion}</p>
               </Card>
             </div>
             <div className="col-4">
               <Card title="Usuarios">
-                <p>Total: 10540</p>
-                <p>Activos: 150</p>
+                <p>Total: {usuario}</p>
               </Card>
             </div>
             <div className="col-4">
               <Card title="Equipos">
-                <p>Total: 100</p>
+                <p>Total: {equipo}</p>
               </Card>
             </div>
           </div>

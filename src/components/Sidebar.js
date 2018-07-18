@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Layout, Menu, Icon } from 'antd'
 import { NavLink, withRouter } from 'react-router-dom'
+import { logout } from '../actions/firebase_auth'
 import logo from '../assets/smp.png'
 
 const { SubMenu } = Menu
@@ -97,6 +98,10 @@ class Sidebar extends Component {
               <Icon type="user" />
               <span>Usuarios</span>
             </NavLink>
+          </Menu.Item>
+          <Menu.Item key="logout" onClick={logout}>
+            <Icon type="logout" />
+            <span>Salir</span>
           </Menu.Item>
           {/* <SubMenu
             key="sub2"
