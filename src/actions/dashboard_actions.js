@@ -8,5 +8,10 @@ export const getVotaciones = (collection, context) => {
 }
 
 export const votar = () => {
-  db.ref('votacion').push({ equipo: 1, usuario: 'kscnksn' })
+  db.ref('votacion').push({
+    sazon: '-LHAG3UqdIzpJ3YUWBCD',
+    color: '-LH_WuXzgDfeijCZr4Dy',
+    sabor: '-LHeT1n005l2O0SCTMYQ',
+    usuario: 'kscnksn'
+  })
 }

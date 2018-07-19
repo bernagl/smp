@@ -13,7 +13,7 @@ export default class Dashboard extends Component {
     getVotaciones('votacion', this)
     getVotaciones('usuario', this)
     getVotaciones('equipo', this)
-    votar()
+    // votar()
   }
 
   setDataToState = async () => {
