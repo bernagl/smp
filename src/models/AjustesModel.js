@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
-import { Button, Card, message } from 'antd'
-import { getDocumentsByModel } from '../actions/firebase_actions'
-import { updateVotacion } from '../actions/evento_actions'
+import { Button, message, Popconfirm } from 'antd'
+import { activarVotacion } from '../actions/votacion_actions'
+import { sendNotification } from '../actions/notification_action'
 import moment from 'moment'
 import { withRouter } from 'react-router-dom'
 
 class Ajustes extends Component {
   state = { eventos: [], activos: [], status: 0 }
 
-  //   componentDidMount() {
-  //     this.setDataToState()
-  //   }
+  // componentDidMount() {
+
+  // }
 
   //   setDataToState = async () => {
   //     const eventos = await getDocumentsByModel('evento')
@@ -29,15 +29,38 @@ class Ajustes extends Component {
   //     this.setDataToState()
   //   }
 
+  activarVotacion = async () => {
+    message.info('Las votaciones están siendo activadas')
+    const r = activarVotacion()
+    message.info('Las votaciones han sido activadas')
+    const notificacion = sendNotification(
+      'Ahora puedes elegir a tus equipos favoritos',
+      'Las votaciones han sido activadas'
+    )
+    this.setState({ status: 1 })
+    message.success('Las votaciones han sido activadas')
+  }
+
   render() {
     const { status } = this.state
     return (
       <div className="row">
         <div className="col-12">
           {status === 0 ? (
-            <Button type="primary" onClick={() => this.setState({ status: 1 })}>
-              Activar votaciones
-            </Button>
+            <Popconfirm
+              title="¿Estás seguro que deseas activar las votaciones?"
+              onConfirm={this.activarVotacion}
+              // onCancel={cancel}
+              okText="Sí"
+              cancelText="No"
+            >
+              <Button
+                type="primary"
+                // onClick={() => this.setState({ status: 1 })}
+              >
+                Activar votaciones
+              </Button>
+            </Popconfirm>
           ) : status === 1 ? (
             <Button
               type="primary"

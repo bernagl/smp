@@ -35,14 +35,16 @@ export default class Evento extends Component {
   }
 
   submit = model => {
-    const { cuerpo, categoria, inicio, fin } = this.state
+    const { cuerpo, categoria, categorias, inicio, fin } = this.state
     const { id } = this.props.match.params
     if (!categoria) return false
+    const catnombre = categorias.find(cat => cat.id === categoria)
     const r = {
       ...model,
       fecha: model.fecha ? model.fecha : moment().format('L'),
       inicio: moment(inicio).format(),
       categoria,
+      catnombre: catnombre.nombre,
       cuerpo,
       fin: moment(fin).format()
     }

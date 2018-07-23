@@ -4,9 +4,11 @@ import DatatableActions from '../components/DatatableActions'
 import Input from '../components/Input'
 import Uploader from '../components/Uploader'
 import moment from 'moment'
+import { sendNotification } from '../actions/notification_action'
 
 export default () => {
   const submit = model => {
+    sendNotification(model.titulo, 'Notificación')
     return { ...model, fecha: model.fecha ? model.fecha : moment().format('L') }
   }
 

@@ -69,7 +69,7 @@ export default class Resultados extends Component {
       <div className="row">
         <div className="col-12 mb-3">
           <div className="row">
-            <div className="col-4">
+            <div className="col-12 col-md-4 mt-2 mt-md-0">
               <Card title="Sabor">
                 {color.length > 0 ? (
                   this.getFirstThree(sabor, 'sabor')
@@ -78,7 +78,7 @@ export default class Resultados extends Component {
                 )}
               </Card>
             </div>
-            <div className="col-4">
+            <div className="col-12 col-md-4 mt-2 mt-md-0">
               <Card title="Sazón">
                 {color.length > 0 ? (
                   this.getFirstThree(sazon, 'sazon')
@@ -87,7 +87,7 @@ export default class Resultados extends Component {
                 )}
               </Card>
             </div>
-            <div className="col-4">
+            <div className="col-12 col-md-4 mt-2 mt-md-0">
               <Card title="Color">
                 {color.length > 0 ? (
                   this.getFirstThree(color, 'color')

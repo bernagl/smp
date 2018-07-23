@@ -12,6 +12,7 @@ import Form from '../components/Form2'
 import ReactQuill from 'react-quill'
 import moment from 'moment'
 import 'react-quill/dist/quill.snow.css'
+import { sendNotification } from '../actions/notification_action'
 
 export default class Equipo extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ export default class Equipo extends Component {
     const { cuerpo, noticia } = this.state
     const { id } = this.props.match.params
     const fecha = noticia.fecha ? noticia.fecha : moment().format('L')
+    sendNotification(model.titulo, 'Noticia')
     return id ? { ...model, cuerpo, id, fecha } : { ...model, cuerpo, fecha }
   }
 
@@ -45,7 +47,6 @@ export default class Equipo extends Component {
     const { titulo, imagen, cuerpo } = this.state
     const { id } = this.props.match.params
     const action = id ? updateDocument('noticia') : addDocument('noticia')
-    console.log(this.state)
     return (
       <div>
         <Form ref={this.formRef} submit={this.submit} action={action}>

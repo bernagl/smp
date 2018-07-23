@@ -56,7 +56,7 @@ export default class Dashboard extends Component {
             </div>
           </div>
         </div>
-        <div className="col-12">
+        {/* <div className="col-12">
           <h2>Eventos activos: </h2>
           <div className="row">
             {activos.length > 0 ? (
@@ -76,7 +76,7 @@ export default class Dashboard extends Component {
               <p>No hay ningún evento activo</p>
             )}
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
