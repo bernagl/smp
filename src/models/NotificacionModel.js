@@ -27,6 +27,12 @@ const Columns = (showModal, setDataToState) => {
     { label: 'Título', key: 'titulo' },
     { label: 'Fecha', key: 'fecha' },
     {
+      label: 'Tipo',
+      Render: notificacion => (
+        <span>{notificacion.tipo ? notificacion.tipo : 'general'}</span>
+      )
+    },
+    {
       label: 'Acciones',
       key: 'actions',
       Render: selected => (
