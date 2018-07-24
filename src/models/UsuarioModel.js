@@ -27,6 +27,11 @@ const Columns = showModal => {
     },
     { label: 'Correo', key: 'correo' },
     {
+      label: 'Método',
+      key: 'provider',
+      Render: u => <span>{u.provider}</span>
+    },
+    {
       label: 'Acciones',
       key: 'actions',
       Render: selected => (
