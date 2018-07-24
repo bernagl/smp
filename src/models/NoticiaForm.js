@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import DatatableActions from '../components/DatatableActions'
 import Input from '../components/Input'
 import Uploader from '../components/Uploader'
-import { Button } from 'antd'
+import { Button, Checkbox, message } from 'antd'
 import {
   addDocument,
   getDocument,
@@ -21,7 +21,8 @@ export default class Equipo extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.state = {
       noticia: {},
-      cuerpo: ''
+      cuerpo: '',
+      notificacion: false
     }
   }
 
@@ -35,16 +36,24 @@ export default class Equipo extends Component {
     this.setState({ ...noticia })
   }
 
-  submit = model => {
-    const { cuerpo, noticia } = this.state
+  submit = async model => {
+    const { cuerpo, noticia, notificacion } = this.state
     const { id } = this.props.match.params
     const fecha = noticia.fecha ? noticia.fecha : moment().format('L')
-    sendNotification(model.titulo, 'Noticia')
+    const notResponse =
+      notificacion &&
+      await sendNotification(model.titulo, 'Noticia', 'noticia', moment().format('L'))
+    notResponse === 202 && message.success('Se ha enviado la notificación')
     return id ? { ...model, cuerpo, id, fecha } : { ...model, cuerpo, fecha }
   }
 
+  handleNotificacion = e => {
+    const notificacion = e.target.checked
+    this.setState({ notificacion })
+  }
+
   render() {
-    const { titulo, imagen, cuerpo } = this.state
+    const { titulo, imagen, notificacion, cuerpo } = this.state
     const { id } = this.props.match.params
     const action = id ? updateDocument('noticia') : addDocument('noticia')
     return (
@@ -60,6 +69,9 @@ export default class Equipo extends Component {
           />
           <Uploader model="noticia" url={imagen} />
           <ReactQuill value={cuerpo} onChange={this.handleChange} />
+          <Checkbox onChange={this.handleNotificacion} checked={notificacion}>
+            Enviar notificación
+          </Checkbox>
           <Button
             type="primary"
             onClick={() => this.formRef.current.submit()}
