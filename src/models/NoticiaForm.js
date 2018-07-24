@@ -42,7 +42,7 @@ export default class Equipo extends Component {
     const fecha = noticia.fecha ? noticia.fecha : moment().format('L')
     const notResponse =
       notificacion &&
-      await sendNotification(model.titulo, 'Noticia', 'noticia', moment().format('L'))
+      await sendNotification(true)(model.titulo, 'Noticia', 'noticia', moment().format('L'))
     notResponse === 202 && message.success('Se ha enviado la notificación')
     return id ? { ...model, cuerpo, id, fecha } : { ...model, cuerpo, fecha }
   }

@@ -5,7 +5,7 @@ import Form from '../components/Form2'
 import Label from '../components/Label'
 import Uploader from '../components/Uploader'
 import moment from 'moment'
-import { Button, DatePicker, Select } from 'antd'
+import { Button, Checkbox, DatePicker, message, Select } from 'antd'
 import {
   addDocument,
   getDocumentsByModel,
@@ -14,6 +14,7 @@ import {
 } from '../actions/firebase_actions'
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
+import { sendNotification } from '../actions/notification_action'
 
 export default class Evento extends Component {
   constructor(props) {
@@ -22,7 +23,8 @@ export default class Evento extends Component {
     this.state = {
       evento: {},
       categorias: [],
-      cuerpo: ''
+      cuerpo: '',
+      notificacion: false
     }
   }
 
@@ -34,8 +36,15 @@ export default class Evento extends Component {
     this.setState({ ...evento, categorias })
   }
 
-  submit = model => {
-    const { cuerpo, categoria, categorias, inicio, fin } = this.state
+  submit = async model => {
+    const {
+      cuerpo,
+      categoria,
+      categorias,
+      inicio,
+      fin,
+      notificacion
+    } = this.state
     const { id } = this.props.match.params
     if (!categoria) return false
     const catnombre = categorias.find(cat => cat.id === categoria)
@@ -49,6 +58,16 @@ export default class Evento extends Component {
       fin: moment(fin).format()
     }
 
+    const notResponse =
+      notificacion &&
+      (await sendNotification(true)(
+        model.titulo,
+        'Evento',
+        'evento',
+        moment().format('L')
+      ))
+    notResponse === 202 && message.success('Se ha enviado la notificación')
+
     return id ? { ...r, id } : r
   }
 
@@ -56,12 +75,24 @@ export default class Evento extends Component {
     this.setState({ [key]: value })
   }
 
+  handleNotificacion = e => {
+    const notificacion = e.target.checked
+    this.setState({ notificacion })
+  }
+
   render() {
-    const { inicio, fin, titulo, categoria, categorias, imagen } = this.state
+    const {
+      inicio,
+      fin,
+      titulo,
+      categoria,
+      notificacion,
+      categorias,
+      imagen
+    } = this.state
     const { id } = this.props.match.params
     const action = id ? updateDocument('evento') : addDocument('evento')
     const f = fin ? moment(fin) : moment()
-    console.log(f)
     return (
       <Form ref={this.formRef} submit={this.submit} action={action}>
         <Input
@@ -116,6 +147,9 @@ export default class Evento extends Component {
           value={this.state.cuerpo}
           onChange={cuerpo => this.setValue('cuerpo', cuerpo)}
         />
+        <Checkbox onChange={this.handleNotificacion} value={notificacion}>
+          Enviar notificación
+        </Checkbox>
         <Button
           type="primary"
           onClick={() => this.formRef.current.submit()}

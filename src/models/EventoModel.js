@@ -94,6 +94,7 @@ export default class Evento extends Component {
         Inputs={this.Inputs}
         Columns={Columns}
         submit={this.submit}
+        redirect="/eventos"
       />
     )
   }
