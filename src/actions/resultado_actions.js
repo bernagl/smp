@@ -10,9 +10,10 @@ export const getResultados = context => {
         equipos.push({
           ...equipo.val(),
           id: equipo.key,
-          sazon: 0,
-          color: 0,
-          sabor: 0
+          stand: 0,
+          uniforme: 0,
+          spirit: 0,
+          choice: 0
         })
       })
     })
@@ -20,20 +21,23 @@ export const getResultados = context => {
       db.ref('votacion').on('child_added', snapshot => {
         const snap = snapshot.val()
         const equipoVotos = equipos.map(equipo => {
-          if (snap['sabor'] === equipo.id)
-            return { ...equipo, sabor: equipo.sabor + 1 }
-          else if (snap['sazon'] === equipo.id)
-            return { ...equipo, sazon: equipo.sazon + 1 }
-          else if (snap['color'] === equipo.id)
-            return { ...equipo, color: equipo.color + 1 }
+          if (snap['spirit'] === equipo.id)
+            return { ...equipo, spirit: equipo.spirit + 1 }
+          else if (snap['stand'] === equipo.id)
+            return { ...equipo, stand: equipo.stand + 1 }
+          else if (snap['uniforme'] === equipo.id)
+            return { ...equipo, uniforme: equipo.uniforme + 1 }
+          else if (snap['choice'] === equipo.id)
+            return { ...equipo, choice: equipo.choice + 1 }
           else return equipo
         })
         equipos = equipoVotos
         const order = orderByKey(equipos)
-        const sabor = [...order('sabor')]
-        const sazon = [...order('sazon')]
-        const color = [...order('color')]
-        context.setState({ equipos, sabor, sazon, color })
+        const spirit = [...order('spirit')]
+        const stand = [...order('stand')]
+        const uniforme = [...order('uniforme')]
+        const choice = [...order('choice')]
+        context.setState({ equipos, spirit, stand, uniforme, choice })
       })
     })
 }

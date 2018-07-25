@@ -7,14 +7,16 @@ import { getResultados } from '../actions/resultado_actions'
 export default class Resultados extends Component {
   state = {
     equipos: [],
-    color: [],
-    sabor: [],
-    sazon: [],
+    spirit: [],
+    stand: [],
+    choice: [],
+    uniforme: [],
     columns: () => [
       { label: 'Equipo', key: 'nombre' },
-      { label: 'Sabor', key: 'sabor' },
-      { label: 'Sazón', key: 'sazon' },
-      { label: 'Color', key: 'color' }
+      { label: 'Mejor Stand', key: 'stand' },
+      { label: 'Mejor Unifome', key: 'uniforme' },
+      { label: 'Mejor Team Spirit', key: 'spirit' },
+      { label: "People's Choice HEB", key: 'choice' }
     ]
   }
 
@@ -25,28 +27,35 @@ export default class Resultados extends Component {
   handleFilter = option => {
     let columns = [
       { label: 'Equipo', key: 'nombre' },
-      { label: 'Sabor', key: 'sabor' },
-      { label: 'Sazón', key: 'sazon' },
-      { label: 'Color', key: 'color' }
+      { label: 'Mejor Stand', key: 'stand' },
+      { label: 'Mejor Unifome', key: 'uniforme' },
+      { label: 'Mejor Team Spirit', key: 'spirit' },
+      { label: "People's Choice HEB", key: 'choice' }
     ]
 
     switch (option) {
-      case 'sabor':
+      case 'stand':
         columns = [
           { label: 'Equipo', key: 'nombre' },
-          { label: 'Sabor', key: 'sabor' }
+          { label: 'Mejor Stand', key: 'stand' }
         ]
         break
-      case 'sazon':
+      case 'uniforme':
         columns = [
           { label: 'Equipo', key: 'nombre' },
-          { label: 'Sazón', key: 'sazon' }
+          { label: 'Mejor Unifome', key: 'uniforme' }
         ]
         break
-      case 'color':
+      case 'spirit':
         columns = [
           { label: 'Equipo', key: 'nombre' },
-          { label: 'Color', key: 'color' }
+          { label: 'Mejor Team Spirit', key: 'spirit' }
+        ]
+        break
+      case 'choide':
+        columns = [
+          { label: 'Equipo', key: 'nombre' },
+          { label: "People's Choice HEB", key: 'choice' }
         ]
         break
     }
@@ -64,33 +73,42 @@ export default class Resultados extends Component {
       ))
 
   render() {
-    const { color, columns, equipos, sabor, sazon } = this.state
+    const { spirit, choice, columns, equipos, stand, uniforme } = this.state
     return (
       <div className="row">
         <div className="col-12 mb-3">
           <div className="row">
-            <div className="col-12 col-md-4 mt-2 mt-md-0">
-              <Card title="Sabor">
-                {color.length > 0 ? (
-                  this.getFirstThree(sabor, 'sabor')
+            <div className="col-12 col-md-3 mt-2 mt-md-0">
+              <Card title="Mejor Stand">
+                {spirit.length > 0 ? (
+                  this.getFirstThree(stand, 'stand')
                 ) : (
                   <h4>Aún no hay votos</h4>
                 )}
               </Card>
             </div>
-            <div className="col-12 col-md-4 mt-2 mt-md-0">
-              <Card title="Sazón">
-                {color.length > 0 ? (
-                  this.getFirstThree(sazon, 'sazon')
+            <div className="col-12 col-md-3 mt-2 mt-md-0">
+              <Card title="Mejor Unifome">
+                {spirit.length > 0 ? (
+                  this.getFirstThree(uniforme, 'uniforme')
                 ) : (
                   <h4>Aún no hay votos</h4>
                 )}
               </Card>
             </div>
-            <div className="col-12 col-md-4 mt-2 mt-md-0">
-              <Card title="Color">
-                {color.length > 0 ? (
-                  this.getFirstThree(color, 'color')
+            <div className="col-12 col-md-3 mt-2 mt-md-0">
+              <Card title="Mejor Team Spirit">
+                {spirit.length > 0 ? (
+                  this.getFirstThree(spirit, 'spirit')
+                ) : (
+                  <h4>Aún no hay votos</h4>
+                )}
+              </Card>
+            </div>
+            <div className="col-12 col-md-3 mt-2 mt-md-0">
+              <Card title="People's Choice HEB">
+                {choice.length > 0 ? (
+                  this.getFirstThree(choice, 'choice')
                 ) : (
                   <h4>Aún no hay votos</h4>
                 )}
@@ -99,23 +117,35 @@ export default class Resultados extends Component {
           </div>
         </div>
         <div className="col-12">
-          <Label label="Mostrar solo resultados de:">
-            <Select
-              defaultValue="todos"
-              onChange={option => this.handleFilter(option)}
-            >
-              <Select.Option value="todos">Todos</Select.Option>
-              <Select.Option value="sabor">Sabor</Select.Option>
-              <Select.Option value="sazon">Sazón</Select.Option>
-              <Select.Option value="color">Color</Select.Option>
-            </Select>
-          </Label>
-          <Datatable
-            Columns={columns}
-            data={equipos}
-            showHideDisabled
-            download
-          />
+          <div className="row">
+            <div className="col-4">
+              <Label label="Mostrar solo resultados de:">
+                <Select
+                  defaultValue="todos"
+                  onChange={option => this.handleFilter(option)}
+                  className="fw"
+                >
+                  <Select.Option value="todos">Todos</Select.Option>
+                  <Select.Option value="stand">Mejor Stand</Select.Option>
+                  <Select.Option value="uniforme">Mejor Uniforme</Select.Option>
+                  <Select.Option value="spirit">
+                    Mejor Team Spirit
+                  </Select.Option>
+                  <Select.Option value="choice">
+                    People's Choice HEB
+                  </Select.Option>
+                </Select>
+              </Label>
+            </div>
+            <div className="col-12">
+              <Datatable
+                Columns={columns}
+                data={equipos}
+                showHideDisabled
+                download
+              />
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -127,9 +157,9 @@ const Columns = (showModal, setDataToState) => {
 }
 
 const data = [
-  { equipo: 'Equipo 1', sabor: 10, sazon: 20, color: 15 },
-  { equipo: 'Equipo 2', sabor: 10, sazon: 20, color: 15 },
-  { equipo: 'Equipo 3', sabor: 10, sazon: 20, color: 15 },
-  { equipo: 'Equipo 4', sabor: 10, sazon: 20, color: 15 },
-  { equipo: 'Equipo 5', sabor: 10, sazon: 20, color: 15 }
+  { equipo: 'Equipo 1', stand: 10, uniforme: 20, spirit: 15 },
+  { equipo: 'Equipo 2', stand: 10, uniforme: 20, spirit: 15 },
+  { equipo: 'Equipo 3', stand: 10, uniforme: 20, spirit: 15 },
+  { equipo: 'Equipo 4', stand: 10, uniforme: 20, spirit: 15 },
+  { equipo: 'Equipo 5', stand: 10, uniforme: 20, spirit: 15 }
 ]
