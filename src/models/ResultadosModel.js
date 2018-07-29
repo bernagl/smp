@@ -55,7 +55,7 @@ export default class Resultados extends Component {
           { label: 'Mejor Team Spirit', key: 'spirit' }
         ]
         break
-      case 'choide':
+      case 'choice':
         columns = [
           { label: 'Equipo', key: 'nombre' },
           { label: "People's Choice HEB", key: 'choice' }
