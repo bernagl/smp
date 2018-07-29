@@ -2,7 +2,7 @@ import axios from 'axios'
 import { db } from './firebase-config'
 
 export const sendNotification = agregar => (body, title, tipo, fecha) => {
-  console.log(tipo)
+  console.log(body, title, tipo)
   return axios
     .post(
       'https://fcm.googleapis.com/fcm/send',
