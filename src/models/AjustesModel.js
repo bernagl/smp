@@ -46,9 +46,14 @@ class Ajustes extends Component {
               <Button type="primary">Activar votaciones</Button>
             </Popconfirm>
           ) : votacion === 1 ? (
-            <Button type="primary" onClick={() => this.toggleVotacion(2)}>
-              Cerrar votaciones
-            </Button>
+            <Popconfirm
+              title="¿Estás seguro que deseas finalizar las votaciones?"
+              onConfirm={() => this.toggleVotacion(2)}
+              okText="Sí"
+              cancelText="No"
+            >
+              <Button type="primary">Cerrar votaciones</Button>
+            </Popconfirm>
           ) : (
             <h5>Votación finalizada</h5>
           )}
