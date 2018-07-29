@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import Datatable from '../components/Table'
 import Label from '../components/Label'
-import { Card, Select } from 'antd'
+import { Badge, Card, Select } from 'antd'
 import { getResultados } from '../actions/resultado_actions'
+import { getStatus } from '../actions/votacion_actions'
 
 export default class Resultados extends Component {
   state = {
@@ -11,6 +12,7 @@ export default class Resultados extends Component {
     stand: [],
     choice: [],
     uniforme: [],
+    votacion: 0,
     columns: () => [
       { label: 'Equipo', key: 'nombre' },
       { label: 'Mejor Stand', key: 'stand' },
@@ -22,6 +24,7 @@ export default class Resultados extends Component {
 
   componentDidMount() {
     getResultados(this)
+    getStatus(this)
   }
 
   handleFilter = option => {
@@ -73,7 +76,23 @@ export default class Resultados extends Component {
       ))
 
   render() {
-    const { spirit, choice, columns, equipos, stand, uniforme } = this.state
+    const {
+      spirit,
+      choice,
+      columns,
+      equipos,
+      stand,
+      uniforme,
+      votacion
+    } = this.state
+    const status =
+      votacion === 0 ? 'default' : votacion === 1 ? 'processing' : 'success'
+    const statusText =
+      votacion === 0
+        ? 'La votación aún no comienza'
+        : votacion === 1
+          ? 'La votación está iniciada'
+          : 'La votación ya finalizó'
     return (
       <div className="row">
         <div className="col-12 mb-3">
@@ -136,6 +155,9 @@ export default class Resultados extends Component {
                   </Select.Option>
                 </Select>
               </Label>
+            </div>
+            <div className="col-8">
+              <Badge status={status} text={statusText} />
             </div>
             <div className="col-12">
               <Datatable
