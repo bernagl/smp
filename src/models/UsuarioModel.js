@@ -15,7 +15,7 @@ export default () => {
 }
 
 const submit = model => {
-  return { direccion: { calle: model.nombre, cp: model.contrasena }, ...model }
+  return model
 }
 
 const Columns = showModal => {
@@ -64,7 +64,7 @@ const Inputs = ({ nombre, correo, contrasena }) => {
         validationError="Ingresa un email válido"
         required
       />
-      <Input
+      {/* <Input
         name="contrasena"
         label="Contraseña"
         value={contrasena}
@@ -80,7 +80,7 @@ const Inputs = ({ nombre, correo, contrasena }) => {
         type="password"
         validationError="Las contraseñas no coinciden"
         required
-      />
+      /> */}
     </React.Fragment>
   )
 }
