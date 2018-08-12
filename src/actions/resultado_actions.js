@@ -37,9 +37,24 @@ export const getResultados = context => {
         const stand = [...order('stand')]
         const uniforme = [...order('uniforme')]
         const choice = [...order('choice')]
-        context.setState({ equipos, spirit, stand, uniforme, choice })
+        context.setState({
+          equipos,
+          spirit,
+          stand,
+          uniforme,
+          choice,
+          loading: false
+        })
       })
     })
+}
+
+export const setWinners = data => {
+  return db
+    .ref('winners')
+    .update(data)
+    .then(r => 202)
+    .catch(e => 404)
 }
 
 const orderByKey = equipos => key => {

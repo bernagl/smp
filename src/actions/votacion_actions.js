@@ -7,6 +7,15 @@ export const toggleVotacion = votacion => {
 export const getStatus = context => {
   return db.ref('ajustes').on('value', snap => {
     const { votacion } = snap.val()
-    context.setState({ votacion })
+    if (votacion === 2) {
+      db.ref('winners')
+        .once('value')
+        .then(wsnap => {
+          const winners = wsnap.val()
+          context.setState({ votacion, winners })
+        })
+    } else {
+      context.setState({ votacion })
+    }
   })
 }

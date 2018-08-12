@@ -13,18 +13,20 @@ export default class Resultados extends Component {
     choice: [],
     uniforme: [],
     votacion: 0,
+    loading: true,
     columns: () => [
       { label: 'Equipo', key: 'nombre' },
       { label: 'Mejor Stand', key: 'stand' },
       { label: 'Mejor Unifome', key: 'uniforme' },
       { label: 'Mejor Team Spirit', key: 'spirit' },
       { label: "People's Choice HEB", key: 'choice' }
-    ]
+    ],
+    winners: null
   }
 
   componentDidMount() {
-    getResultados(this)
     getStatus(this)
+    getResultados(this)
   }
 
   handleFilter = option => {
@@ -81,9 +83,11 @@ export default class Resultados extends Component {
       choice,
       columns,
       equipos,
+      loading,
       stand,
       uniforme,
-      votacion
+      votacion,
+      winners
     } = this.state
     const status =
       votacion === 0 ? 'default' : votacion === 1 ? 'processing' : 'success'
@@ -94,42 +98,74 @@ export default class Resultados extends Component {
           ? 'La votación está iniciada'
           : 'La votación ya finalizó'
     return (
-      <div className="row">
+      <div className={`row ${loading && 'loading'}`}>
         <div className="col-12 mb-3">
           <div className="row">
             <div className="col-12 col-md-3 mt-2 mt-md-0">
               <Card title="Mejor Stand">
-                {spirit.length > 0 ? (
-                  this.getFirstThree(stand, 'stand')
+                {!winners ? (
+                  stand.length > 0 ? (
+                    this.getFirstThree(stand, 'stand')
+                  ) : (
+                    <h4>Aún no hay votos</h4>
+                  )
                 ) : (
-                  <h4>Aún no hay votos</h4>
+                  <h4>
+                    {winners.stand.nombre} - {winners.stand.stand}
+                  </h4>
                 )}
               </Card>
             </div>
             <div className="col-12 col-md-3 mt-2 mt-md-0">
               <Card title="Mejor Unifome">
-                {spirit.length > 0 ? (
-                  this.getFirstThree(uniforme, 'uniforme')
+                {!winners ? (
+                  uniforme.length > 0 ? (
+                    this.getFirstThree(uniforme, 'uniforme')
+                  ) : (
+                    <h4>Aún no hay votos</h4>
+                  )
                 ) : (
-                  <h4>Aún no hay votos</h4>
+                  <h4>
+                    {winners.uniforme.nombre} - {winners.uniforme.uniforme}
+                  </h4>
                 )}
               </Card>
             </div>
             <div className="col-12 col-md-3 mt-2 mt-md-0">
               <Card title="Mejor Team Spirit">
-                {spirit.length > 0 ? (
-                  this.getFirstThree(spirit, 'spirit')
+                {!winners ? (
+                  spirit.length > 0 ? (
+                    this.getFirstThree(spirit, 'spirit')
+                  ) : (
+                    <h4>Aún no hay votos</h4>
+                  )
                 ) : (
-                  <h4>Aún no hay votos</h4>
+                  <h4>
+                    {winners.spirit.nombre} - {winners.spirit.spirit}
+                  </h4>
                 )}
               </Card>
             </div>
             <div className="col-12 col-md-3 mt-2 mt-md-0">
               <Card title="People's Choice HEB">
-                {choice.length > 0 ? (
-                  this.getFirstThree(choice, 'choice')
+                {!winners ? (
+                  choice.length > 0 ? (
+                    this.getFirstThree(choice, 'choice')
+                  ) : (
+                    <h4>Aún no hay votos</h4>
+                  )
                 ) : (
-                  <h4>Aún no hay votos</h4>
+                  <React.Fragment>
+                    <h4>
+                      {winners.choice.place1.nombre} - {winners.choice.place1.choice}
+                    </h4>
+                    <h4>
+                      {winners.choice.place2.nombre} - {winners.choice.place2.choice}
+                    </h4>
+                    <h4>
+                      {winners.choice.place2.nombre} - {winners.choice.place2.choice}
+                    </h4>
+                  </React.Fragment>
                 )}
               </Card>
             </div>

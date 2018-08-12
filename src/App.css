@@ -1,3 +1,7 @@
+.loading {
+  filter: blur(10px)
+}
+
 .admin-title {
   text-transform: capitalize;
   padding-left: 20px;
@@ -93,6 +97,7 @@
 }
 
 /*  */
+
 .uploader label {
   cursor: pointer;
 }
