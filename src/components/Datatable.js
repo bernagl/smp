@@ -126,7 +126,7 @@ export default class Datatable extends Component {
             emptyText={() => 'Esta tabla aún no tiene ningún dato'}
             footer={true}
             // header={true}
-            pagination={10}
+            pagination={50}
             search={true}
             searchPlaceholder="Buscar"
           />

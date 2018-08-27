@@ -39,7 +39,7 @@ export const Router = () => {
 
 export const RouterAuth = () => (
   <Switch>
-    <Route path="/registro" component={Registro} />
+    {/* <Route path="/registro" component={Registro} /> */}
     <Route path="/recover" component={Recover} />
     <Route component={Login} />
   </Switch>

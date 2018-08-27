@@ -26,7 +26,23 @@ export const register = async (correo, contrasena, nombre) => {
       .ref(`admin/${user.uid}`)
       .set({ correo, nombre, admin: true })
       .then(result => 202)
-  } catch (e) {
+  } catch ({ code }) {
+    // let errorText = ''
+    // switch (code) {
+    //   case 'auth/invalid-email':
+    //     errorText = 'El correo es inválido'
+    //     break
+    //   case 'auth/weak-password':
+    //     errorText = 'La contraseña es muy sencilla, intenta con otra'
+    //     break
+    //   case 'auth/email-already-in-use':
+    //     errorText = 'El correo ya está en uso, prueba con otro'
+    //     break
+    //   default:
+    //     errorText = 'Ocurrió un error, por favor vuelve a intentarlo'
+    //     break
+    // }
+    // return errorText
     return 500
   }
 }

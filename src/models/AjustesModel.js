@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { Button, message, Popconfirm } from 'antd'
 import { getStatus, toggleVotacion } from '../actions/votacion_actions'
 import { sendNotification } from '../actions/notification_action'
 import { getResultados, setWinners } from '../actions/resultado_actions'
 import moment from 'moment'
-import { withRouter } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 
 class Ajustes extends Component {
   state = {
@@ -26,15 +26,21 @@ class Ajustes extends Component {
   }
 
   toggleVotacion = async status => {
-    message.info('Las votaciones están siendo activadas')
+    message.info('Actualizando status de las votaciones')
     const r = toggleVotacion(status)
-    message.success('Las votaciones han sido activadas')
+    // message.success('El status de las votaciones ha sido cambiado')
     const title =
-      status === 1 ? 'Votaciones activadas' : 'Votaciones finalizadas'
+      status === 1
+        ? 'Votaciones activadas'
+        : status === 2
+          ? 'Votaciones finalizadas'
+          : 'Resultados publicados'
     const body =
       status === 1
         ? 'Ahora puedes elegir a tus equipos favoritos'
-        : 'Ahora puedes ver los resultados de los ganadores'
+        : status === 2
+          ? 'Estamos obteniendo a los ganadores'
+          : 'Ahora puedes ver los resultados de los ganadores'
     const notificacion = await sendNotification(true)(
       body,
       title,
@@ -42,9 +48,11 @@ class Ajustes extends Component {
       moment().format('L')
     )
 
+    message.success(title)
+
     status === 2 &&
       this.setState({ votacion: status }, async () => {
-        message.success(title)
+        // message.success(title)
         message.info('Estamos obteniendo los ganadores')
         const stand = this.state.stand[0]
         const spirit = this.state.spirit[0]
@@ -95,8 +103,24 @@ class Ajustes extends Component {
                 Cerrar votaciones
               </Button>
             </Popconfirm>
+          ) : votacion === 2 ? (
+            <Fragment>
+              <Popconfirm
+                title="¿Estás seguro que deseas publicar las votaciones?"
+                onConfirm={() => this.toggleVotacion(3)}
+                okText="Sí"
+                cancelText="No"
+              >
+                <Button type="primary" disabled={loading}>
+                  Publicar resultados
+                </Button>
+              </Popconfirm>
+            </Fragment>
           ) : (
-            <h5>Votación finalizada</h5>
+            <Fragment>
+              <h4>Los resultados han sido publicados</h4>
+              <Link to="/resultado">Ver resultados</Link>
+            </Fragment>
           )}
         </div>
       </div>

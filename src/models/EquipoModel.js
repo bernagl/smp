@@ -1,8 +1,6 @@
 import React from 'react'
 import Datatable from '../components/Datatable'
 import DatatableActions from '../components/DatatableActions'
-import { Icon } from 'antd'
-import { Link } from 'react-router-dom'
 
 export default () => {
   return (
@@ -20,8 +18,11 @@ const Columns = (showModal, setDataToState) => {
   return [
     {
       label: 'Nombre',
-      key: 'nombre',
-      Render: element => <span>{element.nombre}</span>
+      key: 'nombre'
+    },
+    {
+      label: 'Contacto',
+      key: 'contacto'
     },
     {
       label: 'Acciones',

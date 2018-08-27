@@ -157,13 +157,16 @@ export default class Resultados extends Component {
                 ) : (
                   <React.Fragment>
                     <h4>
-                      {winners.choice.place1.nombre} - {winners.choice.place1.choice}
+                      1er lugar: {winners.choice.place1.nombre} -{' '}
+                      {winners.choice.place1.choice}
                     </h4>
                     <h4>
-                      {winners.choice.place2.nombre} - {winners.choice.place2.choice}
+                      2do lugar: {winners.choice.place2.nombre} -{' '}
+                      {winners.choice.place2.choice}
                     </h4>
                     <h4>
-                      {winners.choice.place2.nombre} - {winners.choice.place2.choice}
+                      3er lugar: {winners.choice.place2.nombre} -{' '}
+                      {winners.choice.place2.choice}
                     </h4>
                   </React.Fragment>
                 )}

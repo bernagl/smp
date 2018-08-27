@@ -7,6 +7,7 @@ import Uploader from '../components/Uploader'
 import moment from 'moment'
 import { DatePicker, Select } from 'antd'
 import { getDocumentsByModel } from '../actions/firebase_actions'
+import { spawn } from 'child_process'
 
 const { RangePicker } = DatePicker
 
@@ -19,14 +20,13 @@ export default class Evento extends Component {
 
   submit = model => {
     const { categoria, inicio, fin } = this.state
-    // if (!&& !model.inicio && !model.fin) return false
-    if (!categoria) return false
+    // if (!categoria) return false
     return {
       ...model,
       fecha: model.fecha ? model.fecha : moment().format('L'),
       inicio: moment(inicio).format(),
       votacion: 0,
-      categoria,
+      // categoria,
       fin: moment(fin).format()
     }
   }
@@ -102,7 +102,15 @@ export default class Evento extends Component {
 
 const Columns = (showModal, setDataToState) => {
   return [
-    { label: 'Fecha', key: 'fecha' },
+    { label: 'Creado', key: 'fecha' },
+    {
+      label: 'Fecha inicio',
+      Render: ({ inicio }) => <span>{moment(inicio).format('lll')}</span>
+    },
+    {
+      label: 'Fecha fin',
+      Render: ({ fin }) => <span>{moment(fin).format('lll')}</span>
+    },
     { label: 'Título', key: 'titulo' },
     {
       label: 'Acciones',

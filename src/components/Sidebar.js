@@ -46,12 +46,12 @@ class Sidebar extends Component {
               </span>
             }
           >
-            <Menu.Item key="categoria">
+            {/* <Menu.Item key="categoria">
               <NavLink activeClassName="active" to="/categoria">
                 <Icon type="tags-o" />
                 <span>Categorías</span>
               </NavLink>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item key="evento">
               <NavLink activeClassName="active" to="/evento">
                 <Icon type="calendar" />

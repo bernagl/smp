@@ -46,15 +46,15 @@ export default class Evento extends Component {
       notificacion
     } = this.state
     const { id } = this.props.match.params
-    if (!categoria) return false
-    const catnombre = categorias.find(cat => cat.id === categoria)
+    // if (!categoria) return false
+    // const catnombre = categorias.find(cat => cat.id === categoria)
     const r = {
       ...model,
       fecha: model.fecha ? model.fecha : moment().format('L'),
       inicio: moment(inicio).format(),
-      categoria,
-      catnombre: catnombre.nombre,
-      cuerpo,
+      // categoria,
+      // catnombre: catnombre.nombre,
+      // cuerpo,
       fin: moment(fin).format()
     }
 
@@ -85,6 +85,7 @@ export default class Evento extends Component {
       inicio,
       fin,
       titulo,
+      ubicacion,
       categoria,
       notificacion,
       categorias,
@@ -103,7 +104,15 @@ export default class Evento extends Component {
           validationError="Ingresa un título válido"
           required
         />
-        <Label label="Categoría">
+        <Input
+          name="ubicacion"
+          label="Ubicación"
+          value={ubicacion}
+          validations="minLength:3"
+          validationError="Ingresa una ubicación válida"
+          required
+        />
+        {/* <Label label="Categoría">
           {categorias.length > 0 && (
             <Select
               placeholder="Selecciona una categoría"
@@ -121,7 +130,7 @@ export default class Evento extends Component {
               ))}
             </Select>
           )}
-        </Label>
+        </Label> */}
         <Label label="Fechas">
           <DatePicker
             value={inicio ? moment(inicio) : moment()}
@@ -140,13 +149,13 @@ export default class Evento extends Component {
             // onOpenChange={fin => this.setValue('fin', fin)}
           />
         </Label>
-        <Label label="Imagen">
+        {/* <Label label="Imagen">
           <Uploader model="evento" url={imagen} />
-        </Label>
-        <ReactQuill
+        </Label> */}
+        {/* <ReactQuill
           value={this.state.cuerpo}
           onChange={cuerpo => this.setValue('cuerpo', cuerpo)}
-        />
+        /> */}
         <Checkbox onChange={this.handleNotificacion} value={notificacion}>
           Enviar notificación
         </Checkbox>
@@ -155,7 +164,7 @@ export default class Evento extends Component {
           onClick={() => this.formRef.current.submit()}
           className="mt-2"
         >
-          Guardar noticia
+          Guardar evento
         </Button>
       </Form>
     )

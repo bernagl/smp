@@ -28,12 +28,13 @@ export default class Equipo extends Component {
   submit = async model => {
     const { id } = this.props.match.params
     const { usuarios: u, equipo } = this.state
-    let usuarios = {}
+    // let usuarios = {}
     const isEqipo = await this.checkIfExists(model, id)
     if (!isEqipo) return
-    u.map(usuario => (usuarios = { ...usuarios, [usuario]: true }))
+    // u.map(usuario => (usuarios = { ...usuarios, [usuario]: true }))
 
-    return id ? { ...model, usuarios, id: equipo.id } : { ...model, usuarios }
+    return id ? { ...model, id: equipo.id } : { ...model }
+    // return id ? { ...model, usuarios, id: equipo.id } : { ...model, usuarios }
   }
 
   handleUsuarios = usuarios => {
@@ -46,16 +47,16 @@ export default class Equipo extends Component {
       message.error('El nombre del equipo no está disponible')
       return false
     }
-    isEquipo = await checkIfExists('correo')(model.correo, id)
-    if (isEquipo) {
-      message.error('El correo del equipo no está disponible')
-      return false
-    }
-    isEquipo = await checkIfExists('telefono')(model.telefono, id)
-    if (isEquipo) {
-      message.error('El teléfono del equipo no está disponible')
-      return false
-    }
+    // isEquipo = await checkIfExists('correo')(model.correo, id)
+    // if (isEquipo) {
+    //   message.error('El correo del equipo no está disponible')
+    //   return false
+    // }
+    // isEquipo = await checkIfExists('telefono')(model.telefono, id)
+    // if (isEquipo) {
+    //   message.error('El teléfono del equipo no está disponible')
+    //   return false
+    // }
 
     return true
   }
@@ -78,6 +79,14 @@ export default class Equipo extends Component {
                   required
                 />
                 <Input
+                  name="contacto"
+                  label="Contacto"
+                  value={equipo ? equipo.contacto : ''}
+                  validations="minLength:1"
+                  validationError=""
+                  required
+                />
+                {/* <Input
                   name="correo"
                   label="Correo"
                   value={equipo ? equipo.correo : ''}
@@ -108,12 +117,8 @@ export default class Equipo extends Component {
                     defaultValue={usuarios}
                     onChange={this.handleUsuarios}
                     tokenSeparators={[',']}
-                  >
-                    {/* {usuarios.map(usuario => (
-                    <Select.Option key={usuario.id}>{usuario.correo}</Select.Option>
-                  ))} */}
-                  </Select>
-                </Label>
+                  />
+                </Label> */}
                 <Button
                   type="primary"
                   onClick={() => this.formRef.current.submit()}
@@ -133,6 +138,14 @@ export default class Equipo extends Component {
                 required
               />
               <Input
+                name="contacto"
+                label="Contacto"
+                value={equipo ? equipo.contacto : ''}
+                validations="minLength:1"
+                validationError=""
+                required
+              />
+              {/* <Input
                 name="correo"
                 label="Correo"
                 value={equipo ? equipo.correo : ''}
@@ -164,11 +177,8 @@ export default class Equipo extends Component {
                   onChange={this.handleUsuarios}
                   tokenSeparators={[',']}
                 >
-                  {/* {usuarios.map(usuario => (
-              <Select.Option key={usuario.id}>{usuario.correo}</Select.Option>
-            ))} */}
                 </Select>
-              </Label>
+              </Label> */}
               <Button
                 type="primary"
                 onClick={() => this.formRef.current.submit()}

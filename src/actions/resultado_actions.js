@@ -46,6 +46,7 @@ export const getResultados = context => {
           loading: false
         })
       })
+      context.setState({ loading: false })
     })
 }
 

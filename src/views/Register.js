@@ -12,7 +12,6 @@ export default class Registro extends Component {
 
   submit = async ({ correo, contrasena, nombre }) => {
     const r = await register(correo, contrasena, nombre)
-    console.log(r)
     return r
   }
 
